@@ -28,7 +28,7 @@ from distutils.dir_util import copy_tree
 import datetime
 from build_utils_py3.build_utils import *
 from build_utils_py3.configs import ConfigsOSX
-
+from build_utils_py3.git_version_fetch import get_git_sha, create_comit_tag_py
 
 
 t1 = time.time()
@@ -96,6 +96,10 @@ if not os.path.isdir(DEPENDENCIES_ROOT):
 
 CC3D_BUILD_PATH = os.path.abspath(os.path.join(BUILD_ROOT, 'CompuCell3D'))
 CC3D_SOURCE_PATH = os.path.abspath(os.path.join(SOURCE_ROOT, 'CompuCell3D'))
+
+# getting git commit label
+sha_label = get_git_sha(git_repo=SOURCE_ROOT)
+
 if not os.path.isdir(CC3D_BUILD_PATH):
     os.makedirs(CC3D_BUILD_PATH)
 os.chdir(CC3D_BUILD_PATH)
@@ -142,6 +146,9 @@ os.system(cmd)
 
 subprocess.call(['make', 'install'])
 
+# creating commit_tag.py inside <install_dir>/lib/site_packages/cc3d
+sha_label_py_path = os.path.join(INSTALL_PREFIX, 'lib/site-packages/cc3d/commit_tag.py')
+create_comit_tag_py(sha_label=sha_label, target_path=sha_label_py_path)
 
 try:
     copy_tree(CFG.PREREQUISITES_DIR, INSTALL_PREFIX, preserve_symlinks=1)
