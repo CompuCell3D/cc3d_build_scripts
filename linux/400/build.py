@@ -29,6 +29,7 @@ from subprocess import Popen, PIPE
 import subprocess
 import argparse
 from functools import partial
+from build_utils_py3.git_version_fetch import get_git_sha, create_comit_tag_py
 
 
 def run_command(command_input, check_command_status=True):
@@ -161,9 +162,15 @@ if __name__ == '__main__':
 
     os.chdir(CC3D_BUILD_PATH)
 
+    # getting git commit label
+    sha_label = get_git_sha(git_repo=CC3D_SOURCE_PATH)
+
     rc(cmake_config_command)
     rc(['make', '-j', '{num_cpus}'.format(num_cpus=num_cpus), 'install'])
 
+    # creating commit_tag.py inside <install_dir>/lib/site_packages/cc3d
+    sha_label_py_path = os.path.join(install_prefix, 'lib/site-packages/cc3d/commit_tag.py')
+    create_comit_tag_py(sha_label=sha_label, target_path=sha_label_py_path)
 
     # subprocess.call(cmake_config_command)
     #
