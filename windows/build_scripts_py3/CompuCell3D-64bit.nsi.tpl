@@ -157,7 +157,7 @@ SetOverwrite ifnewer
 ### CUSTOM MODIFICATION 
 # MessageBox MB_OK ' THIS IS Python Path  $PYTHON_PATH27python $INSTDIR\scriptSetup.py $INSTDIR'
 DetailPrint "Postinstallation ..."
- ExecWait '"$INSTDIR\python36\python" "$INSTDIR\scriptSetup.py" "$INSTDIR" "$INSTDIR\Python36" '
+ ExecWait '"$INSTDIR\python37\python" "$INSTDIR\scriptSetup.py" "$INSTDIR" "$INSTDIR\Python37   " '
  #removing unnecessary files
  Delete "$INSTDIR\Prerequisites\vc_redist_2015.x64.exe"
 
