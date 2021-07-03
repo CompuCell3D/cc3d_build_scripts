@@ -88,7 +88,18 @@ SectionEnd
 This not optimal and alternative approaches could involve compiling tbb in VS2015 and including
 developer files in the new tbb_full_dev package
 
+Finding Missing libraries
+-------------------------
 
+One of the best ways to find missing libraries is to use ``Dependencies`` package
+
+https://github.com/lucasg/Dependencies
+
+a brief description how to use it efficiently is found here:
+https://vxlabs.com/2017/12/06/how-to-debug-pyinstaller-dll-pyd-load-failed-issues-on-windows/
+
+Simply put if you see failed dll load message you need to keep looking into dependencies of
+various libraries that Dependencies opens as tabs and you will likely find a problematic entry
 
 Adding TBB to conda environment - old way - used with python 3.6 - a bit more
 -------------------------------
