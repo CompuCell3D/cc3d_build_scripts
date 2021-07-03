@@ -46,7 +46,51 @@ library is not installed along with vtk so we need to do some minor patching as 
 
 To install dependencies
 
-Adding TBB to conda environment
+Adding TBB to conda environment - 2021 - new approach for python 3.7+ distributions
+-----------------------------------------------------
+
+To handle issue with missing developer files for tbb library that conda's vtk 8.2 depends on if you want to
+link against those vtk library , we need can use ``tbb_full_dev`` package from ``compucell3d``
+anaconda channel. to do so after you install all conda packages given earlier you would run
+
+.. code-block:: console
+
+    conda install -c compucell3d tbb_full_dev
+
+One thing to be aware of is that binaries for tbb in this package have been compiled using
+VS 2013 and you need to make sure that you install Visual C++ Redistributable Packages for Visual Studio 2013
+64 bit. you can find them on microsoft site: https://www.microsoft.com/en-us/download/details.aspx?id=40784
+
+For the binary installer that we prepare for CC3D we have added ``vc_redist_2013.x64.exe`` to the prerequisites
+folder of the installer and this package will be automatically installed when we install CC3D.
+
+We have added the following lines to the NSIS installer template to ensure that VS 2013 Redistributable gets
+automaticaLL INSTALLED
+
+.. code-block:: console
+
+Section -Prerequisites
+
+  SetOutPath $INSTDIR\Prerequisites
+    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\vc_redist_2015.x64.exe"
+    ; ExecWait "$INSTDIR\Prerequisites\vcredist_x86.exe /q:a /c:$\"VCREDI~1.EXE /q:a /c:$\"$\"msiexec /i vcredist.msi /qb!$\"$\" $\""
+    ExecWait "$INSTDIR\Prerequisites\vc_redist_2015.x64.exe /q /norestart"
+    ; ExecWait "$INSTDIR\Prerequisites\vc_redist_2015.x64.exe /norestart"
+    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\vc_redist_2013.x64.exe"
+    ExecWait "$INSTDIR\Prerequisites\vc_redist_2013.x64.exe  /install /quiet /norestart"
+
+    Goto vs2008Libs
+  vs2008Libs:
+
+SectionEnd
+
+
+This not optimal and alternative approaches could involve compiling tbb in VS2015 and including
+developer files in the new tbb_full_dev package
+
+
+
+Adding TBB to conda environment - old way - used with python 3.6 - a bit more
 -------------------------------
 
 TBB is s C library so all we need to do is to grab binaries for windows from
@@ -58,12 +102,12 @@ For our purposes we used this direct link to grab pre-build windows tbb librarie
 https://www.threadingbuildingblocks.org/sites/default/files/software_releases/windows/tbb43_20150611oss_win.zip
 
 Assuming we are building 64-bit application we copy
-**IMPORTANT** for 32-bit conda tbb seems to be included so below instrutions apply to 64-bit only conda
+**IMPORTANT** for 32-bit conda tbb seems to be included so below instructions apply to 64-bit only conda
 
 ``include/tbb`` directory of the tbb binaries into ``c:/Miniconda3/envs/cc3d_2020/Library/include/vtk-8.1`` .
 
 
-In your case the exact location of conda environment you are creating mught be different . The important part is to go
+In your case the exact location of conda environment you are creating might be different . The important part is to go
 from the root of the environment - in my case ``c:/Miniconda3/envs/cc3d_2020`` to ``Library/include/vtk-8.1``.
 
 Next we copy  tbb libraries
