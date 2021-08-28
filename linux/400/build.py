@@ -29,6 +29,9 @@ from subprocess import Popen, PIPE
 import subprocess
 import argparse
 from functools import partial
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 from build_utils_py3.git_version_fetch import get_git_sha, create_comit_tag_py
 
 

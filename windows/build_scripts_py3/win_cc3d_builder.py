@@ -145,7 +145,8 @@ else:
 
 subprocess.call(cmake_args)
 
-subprocess.call(['nmake', 'install'])
+# subprocess.call(['nmake', 'install'])
+subprocess.call(['ninja', 'install'])
 ############ End of building CompuCell3D
 
 # creating commit_tag.py inside <install_dir>/lib/site_packages/cc3d

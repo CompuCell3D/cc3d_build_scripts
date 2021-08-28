@@ -138,6 +138,8 @@ Section -Prerequisites
     ; ExecWait "$INSTDIR\Prerequisites\vcredist_x86.exe /q:a /c:$\"VCREDI~1.EXE /q:a /c:$\"$\"msiexec /i vcredist.msi /qb!$\"$\" $\""           
     ExecWait "$INSTDIR\Prerequisites\vc_redist_2015.x64.exe /q /norestart"
     ; ExecWait "$INSTDIR\Prerequisites\vc_redist_2015.x64.exe /norestart"
+    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\vc_redist_2013.x64.exe"
+    ExecWait "$INSTDIR\Prerequisites\vc_redist_2013.x64.exe  /install /quiet /norestart"
     
     Goto vs2008Libs
   vs2008Libs:
@@ -157,9 +159,10 @@ SetOverwrite ifnewer
 ### CUSTOM MODIFICATION 
 # MessageBox MB_OK ' THIS IS Python Path  $PYTHON_PATH27python $INSTDIR\scriptSetup.py $INSTDIR'
 DetailPrint "Postinstallation ..."
- ExecWait '"$INSTDIR\python36\python" "$INSTDIR\scriptSetup.py" "$INSTDIR" "$INSTDIR\Python36" '
+ ExecWait '"$INSTDIR\python37\python" "$INSTDIR\scriptSetup.py" "$INSTDIR" "$INSTDIR\Python37   " '
  #removing unnecessary files
  Delete "$INSTDIR\Prerequisites\vc_redist_2015.x64.exe"
+ Delete "$INSTDIR\Prerequisites\vc_redist_2013.x64.exe"
 
   
 ### END OF CUSTOM MODIFICATION 
