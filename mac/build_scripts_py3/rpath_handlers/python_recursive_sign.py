@@ -2,7 +2,7 @@ from recursive_code_sign import codesign_directory
 from recursive_code_sign import codesign_directory_entitlement
 from os.path import *
 
-python_install_dir = '/Users/m/prerequisites/4.1.2_10.14/python37_signed_entitlements'
+python_install_dir = '/Users/m/prerequisites/4.2.2_10.14/python37_signed_entitlements'
 entitlement_file = '/Users/m/CC3D_BUILD_SCRIPTS_GIT/mac/build_scripts_py3/rpath_handlers/entitlements.plist'
 
 # python_install_dir = '/Users/m/prerequisites/4.1.2_10.14/python37_signed/python.app'

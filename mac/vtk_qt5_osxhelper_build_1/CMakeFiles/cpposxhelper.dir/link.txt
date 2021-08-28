@@ -1,0 +1,1 @@
+/usr/local/Cellar/gcc48/4.8.2/bin/g++  -O3 -DNDEBUG -dynamiclib -Wl,-headerpad_max_install_names  -o libcpposxhelper.dylib -install_name @rpath/libcpposxhelper.dylib CMakeFiles/cpposxhelper.dir/cpp_osx_helper.cpp.o CMakeFiles/cpposxhelper.dir/osxHelper.mm.o -framework cocoa 
