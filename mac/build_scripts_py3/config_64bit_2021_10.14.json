@@ -20,6 +20,6 @@
     "/usr/local/opt/gcc@6/lib/gcc/6/libgomp.1.dylib"
   ],
   "CERTIFICATE_LABEL":"Developer ID Application: Indiana University (5J69S77A7G)",
-  "PYTHON_SIGNED_DIR": "/Users/m/prerequisites/4.1.2_10.14/python37_signed_entitlements"
+  "PYTHON_SIGNED_DIR": "/Users/m/prerequisites/4.2.2_10.14/python37_signed_entitlements"
 
 }

@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/m/src/vtk_qt5/cpp/cpp_osx_helper.cpp
+osxHelper.h
+/Users/m/src/vtk_qt5/cpp/osxHelper.h
+stdio.h
+-
+stdlib.h
+-
+
+/Users/m/src/vtk_qt5/cpp/osxHelper.h
+
+/Users/m/src/vtk_qt5/cpp/osxHelper.mm
+Cocoa/Cocoa.h
+-
+osxHelper.h
+/Users/m/src/vtk_qt5/cpp/osxHelper.h
+

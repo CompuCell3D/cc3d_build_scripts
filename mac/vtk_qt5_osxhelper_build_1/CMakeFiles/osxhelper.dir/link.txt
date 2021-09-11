@@ -1,0 +1,1 @@
+/usr/local/Cellar/gcc48/4.8.2/bin/g++  -O3 -DNDEBUG -dynamiclib -Wl,-headerpad_max_install_names  -o libosxhelper.dylib -install_name @rpath/libosxhelper.dylib CMakeFiles/osxhelper.dir/osxHelper.mm.o -framework cocoa 

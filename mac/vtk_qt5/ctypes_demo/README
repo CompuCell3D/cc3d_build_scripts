@@ -1,0 +1,9 @@
+Interfacing python + c + opencv via ctypes
+==========================================
+
+This is an example showing how to access
+image data, that is consisting of non null-terminated,
+non-string char * arrays.
+
+More information is available here
+http://www.johnstowers.co.nz/blog/index.php/2011/07/15/interfacing-python-c-opencv-via-ctypes/
