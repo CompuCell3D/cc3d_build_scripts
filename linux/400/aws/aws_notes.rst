@@ -54,6 +54,12 @@ We first install ``xterm`` to make sure we can forward X11 windows
 
 This single command will install all dependencies needed to forward X11 windows
 
+On some ubuntu version e.g. 20.04 you may also need to install ``libncurses5`` if you want lib road runner to work
+
+.. code-block:: console
+
+    sudo apt-get install libncurses5
+
 Next, we disconnect and connect again to  to AWS instance but this time we will request  X11 window forwarding
 so that we can see and interact with GUI's
 
