@@ -7,6 +7,14 @@ our download site - https://sourceforge.net/projects/cc3d/files/compile_dependen
 However, if you are interested in exact steps that are required to prepare those dependencies we present them in
 details below
 
+Opening Cmake
+-------------
+
+it is best to open CMAKE directly from conda terminal. this way all the paths will be set up properly and
+we can avoid errors that say that e.g. numpy cannot be found (because numpy-dependent library paths cannot be located
+if the lookup paths are not set properly). Opening cmake gui from conda solves this issue. + picking swig installation
+from conda is another bonus - we will avoid issues with missing .i or .swg files
+
 Preparing dependencies
 ----------------------
 
@@ -46,7 +54,29 @@ library is not installed along with vtk so we need to do some minor patching as 
 
 To install dependencies
 
-Adding TBB to conda environment - 2021 - new approach for python 3.7+ distributions
+Adding TBB to conda environment - 3.7 - manual approach
+-------------------------------
+
+TBB is s C library so all we need to do is to grab binaries for windows from
+
+https://github.com/intel/tbb/blob/master/download.md
+
+For our purposes we used this direct link to grab pre-build windows tbb libraries
+
+https://www.threadingbuildingblocks.org/sites/default/files/software_releases/windows/tbb43_20150611oss_win.zip
+
+Assuming we are building 64-bit application we copy
+**IMPORTANT** for 32-bit conda tbb seems to be included so below instructions apply to 64-bit only conda
+
+first we copy ``include/tbb`` directory of the tbb binaries into ``c:/Miniconda3/envs/cc3d_2021_3.7/Library/include``
+We need to also copy tbb libraries
+
+We grab all files (*.lib extensions) from ``lib/intel64/vc12`` and place them in
+``c:/Miniconda3/envs/cc3d_2021_3.7/Library/lib`` or altrnatively we grab them from
+``CC3D_BUILD_SCRIPTS/windows/4.0.0/tbb/tbb_64bit_dist/lib`` - same applies to includes.
+
+
+Alternative Adding TBB to conda environment - 2021 - new approach for python 3.7+ distributions
 -----------------------------------------------------
 
 To handle issue with missing developer files for tbb library that conda's vtk 8.2 depends on if you want to
@@ -101,7 +131,7 @@ https://vxlabs.com/2017/12/06/how-to-debug-pyinstaller-dll-pyd-load-failed-issue
 Simply put if you see failed dll load message you need to keep looking into dependencies of
 various libraries that Dependencies opens as tabs and you will likely find a problematic entry
 
-Adding TBB to conda environment - old way - used with python 3.6 - a bit more
+Adding TBB to conda environment - old way - used with python 3.6 - a bit more manual approach
 -------------------------------
 
 TBB is s C library so all we need to do is to grab binaries for windows from

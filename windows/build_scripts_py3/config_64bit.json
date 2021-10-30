@@ -4,6 +4,7 @@
   "CMAKE_PATH_old": "C:/Program Files (x86)/CMake/bin/cmake.exe",
   "CMAKE_GENERATOR_NAME_old": "NMake Makefiles",
   "CMAKE_GENERATOR_NAME": "Ninja",
+  "CMAKE_GENERATOR_NAME_vs": "Visual Studio 14 2015 Win64",
   "WIN_INSTALLER_CREATOR": "win_cc3d_installer_creator.py",
   "GIT_EXE": "C:/Program Files/Git/bin/git.exe",
   "WIN_INSTALLER_TEMPLATE": "CompuCell3D-64bit.nsi.tpl",
