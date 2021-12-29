@@ -1,0 +1,56 @@
+#!/bin/bash
+# save as ./decompress
+
+echo ""
+echo "Self Extracting Installer"
+echo ""
+
+function printUsage() {
+  echo -e "\033[1mUsage:\033[0m"
+  echo "$0 [INSTALLATION_DIR] "
+  echo
+  echo -e "\033[1mOptions:\033[0m"
+  echo "  -h (--help)"
+
+}
+
+#Argument validation
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+  printUsage
+  exit 1
+fi
+if [ -z "$1" ]; then
+  echo "Please enter installation directory"
+  echo
+  printUsage
+  exit 1
+else
+  echo "Installation directory : $1"
+fi
+
+INSTALLATION_DIR=$1
+
+echo "this is installation dir : $INSTALLATION_DIR"
+
+#export TMPDIR=`mktemp -d /tmp/selfextract.XXXXXX`
+export TMPDIR=/tmp/extractpayload$RANDOM
+mkdir -p $TMPDIR
+chmod 700 $TMPDIR
+
+ARCHIVE=`awk '/^__ARCHIVE_BELOW__/ {print NR + 1; exit 0; }' $0`
+
+tail -n+$ARCHIVE $0 | tar xzv -C $TMPDIR
+
+CDIR=`pwd`
+cd $TMPDIR
+chmod 755 ./installer
+./installer $INSTALLATION_DIR
+
+cd $CDIR
+rm -rf $TMPDIR
+
+echo "All done"
+
+exit 0
+
+__ARCHIVE_BELOW__
