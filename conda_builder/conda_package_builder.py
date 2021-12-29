@@ -18,16 +18,12 @@ import argparse
 from pathlib import Path
 import shutil
 from contextlib import contextmanager
-import time
 import os
 import sys
 from jinja2 import Environment, FileSystemLoader
 
 
-
-
 def main():
-
 
     args = parse_cml()
     version = args.version
@@ -61,7 +57,6 @@ def parse_cml():
     parser.add_argument('--json-config', type=str)
     parser.add_argument('--version', type=str)
     parser.add_argument('--build-number', type=str)
-    # parser.add_argument('--packages', type=list, nargs='+')
     parser.add_argument('--packages',  nargs='*', action='store', type=str)
 
     args = parser.parse_args()
@@ -74,7 +69,6 @@ def parse_input_json(json_path)->list:
         json_dict = json.load(json_in)
         conda_dirs_list = json_dict['conda_dirs']
         return conda_dirs_list
-        # return json_dict
 
 
 @contextmanager
@@ -105,7 +99,6 @@ def render_jinja_template(jinja_template_path: Path, output_path: Path, **kwargs
     jinja_template_dir = jinja_template_path.parent
     env = Environment(loader=FileSystemLoader(str(jinja_template_dir)))
 
-
     template = env.get_template('meta.yaml.jinja')
     # template = env.get_template(str(jinja_template_path))
     output_from_parsed_template = template.render(**kwargs)
@@ -132,8 +125,7 @@ def build_conda_package(conda_build_dir, version, build_number):
         print ('building conda package using command: ')
         print(command_build)
 
-        # os.system(command_build)
-
+        os.system(command_build)
 
 
 def concatenate_files(filenames, out_fname):
