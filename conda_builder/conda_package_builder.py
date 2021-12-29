@@ -1,3 +1,18 @@
+"""
+example command line:
+
+conda_package_builder.py --version 4.3.2 --build_number 2
+--json_config D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\cc3d_conda_input_data.json
+
+example command line with specified packages
+
+
+conda_package_builder.py --version 4.3.2 --build_number 2
+--json_config D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\cc3d_conda_input_data.json --packages  cc3d cc3d_player5
+
+
+allowed packages cc3d cc3d_player5, cc3d_twedit5 compucell3d. Build order matters
+"""
 import json
 import argparse
 from pathlib import Path
@@ -6,50 +21,60 @@ from contextlib import contextmanager
 import time
 import os
 import sys
-import jinja2
-
 from jinja2 import Environment, FileSystemLoader
-# env = Environment(loader=FileSystemLoader('templates'))
-# template = env.get_template('test.html')
-# output_from_parsed_template = template.render(foo='Hello World!')
-# print(output_from_parsed_template)
-#
-# # to save the results
-# with open("my_new_file.html", "w") as fh:
-#     fh.write(output_from_parsed_template)
+
+
 
 
 def main():
 
-    version = "4.3.2"
-    build_number = "1"
 
-    json_path = r'D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\cc3d_conda_input_data.json'
-    json_dict = parse_input_json(json_path=json_path)
+    args = parse_cml()
+    version = args.version
+    build_number = args.build_number
+    json_path = args.json_config
+    packages = args.packages
 
-    # cc3d
-    cc3d_core_conda_recipes = Path(json_dict['cc3d']).joinpath()
+    conda_dirs_data_list = parse_input_json(json_path=json_path)
 
-    jinja_pth = Path(r'D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\meta.yaml.jinja')
+    all_configured_packages = []
+    # in this case we build all packages as specified in json
+    for package_data in conda_dirs_data_list:
+        all_configured_packages.append(next(iter(package_data.keys())))
 
-    meta_yaml_path = Path(r'D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\meta.yaml')
-    build_conda_package(conda_build_dir=cc3d_core_conda_recipes, version=version, build_number=build_number)
+    configured_packages = all_configured_packages
+    if packages is not None and len(packages):
+        configured_packages = packages
 
-    # prepare_conda_meta(version=version, build_number=build_number, meta_yaml_path=meta_yaml_path)
-    # # render_jinja_template(jinja_template_path=jinja_pth, output_path=Path('rendered_template.yaml'),
-    # #                       version=version, build_number=build_number)
-    #
-    #
-    # build_conda_package(conda_build_dir=cc3d_core_conda_recipes, version=version, build_number=build_number)
-    #
-    print
+    # building package after package
+    for package_data in conda_dirs_data_list:
+        package_name = next(iter(package_data.keys()))
+        conda_recipe_dir = next(iter(package_data.values()))
+
+        if package_name in configured_packages:
+            build_conda_package(conda_build_dir=conda_recipe_dir, version=version, build_number=build_number)
 
 
-def parse_input_json(json_path):
+def parse_cml():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--json-config', type=str)
+    parser.add_argument('--version', type=str)
+    parser.add_argument('--build-number', type=str)
+    # parser.add_argument('--packages', type=list, nargs='+')
+    parser.add_argument('--packages',  nargs='*', action='store', type=str)
+
+    args = parser.parse_args()
+    return args
+
+
+def parse_input_json(json_path)->list:
 
     with open(json_path, 'r') as json_in:
         json_dict = json.load(json_in)
-        return json_dict
+        conda_dirs_list = json_dict['conda_dirs']
+        return conda_dirs_list
+        # return json_dict
 
 
 @contextmanager
@@ -91,19 +116,6 @@ def render_jinja_template(jinja_template_path: Path, output_path: Path, **kwargs
         fh.write(output_from_parsed_template)
 
 
-
-
-
-
-# def create_conda_dir_work_folder_copy(source_conda_dir: Path):
-#
-#     tmp_conda_dir = Path(str(source_conda_dir)+"-tmp")
-#     tmp_conda_dir.mkdir(parents=True, exist_ok=True)
-#     shutil.copytree(source_conda_dir, tmp_conda_dir)
-#
-#
-
-
 def build_conda_package(conda_build_dir, version, build_number):
 
     command_join_char = ';'
@@ -122,9 +134,6 @@ def build_conda_package(conda_build_dir, version, build_number):
 
         # os.system(command_build)
 
-
-        # time.sleep(10)
-    # create_conda_dir_work_folder_copy(source_conda_dir=conda_build_dir)
 
 
 def concatenate_files(filenames, out_fname):
