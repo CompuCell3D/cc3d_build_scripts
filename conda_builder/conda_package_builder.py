@@ -3,13 +3,14 @@ example command line:
 
 conda_package_builder.py --version 4.3.2 --build_number 2
 --json_config D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\cc3d_conda_input_data_do_not_commit.json
+--build-installer
 
 example command line with specified packages
 
 
 conda_package_builder.py --version 4.3.2 --build_number 2
 --json_config D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\cc3d_conda_input_data_do_not_commit.json --packages  cc3d cc3d_player5
-
+--build-installer
 
 allowed packages cc3d cc3d_player5, cc3d_twedit5 compucell3d. Build order matters
 """
@@ -30,9 +31,10 @@ def main():
     build_number = args.build_number
     json_path = args.json_config
     packages = args.packages
+    build_installer = args.build_installer
 
-
-    conda_dirs_data_list = parse_input_json(json_path=json_path)
+    json_dict = parse_input_json(json_path=json_path)
+    conda_dirs_data_list = json_dict['conda_dirs']
 
     all_configured_packages = []
     # in this case we build all packages as specified in json
@@ -43,13 +45,17 @@ def main():
     if packages is not None and len(packages):
         configured_packages = packages
 
-    # building package after package
-    for package_data in conda_dirs_data_list:
-        package_name = next(iter(package_data.keys()))
-        conda_recipe_dir = next(iter(package_data.values()))
+    # # building package after package
+    # for package_data in conda_dirs_data_list:
+    #     package_name = next(iter(package_data.keys()))
+    #     conda_recipe_dir = next(iter(package_data.values()))
+    #
+    #     if package_name in configured_packages:
+    #         build_conda_package(conda_build_dir=conda_recipe_dir, version=version, build_number=build_number)
 
-        if package_name in configured_packages:
-            build_conda_package(conda_build_dir=conda_recipe_dir, version=version, build_number=build_number)
+    if build_installer:
+        if sys.platform.startswith('win'):
+            build_installer_win(json_dict=json_dict, version=version, build_number=build_number)
 
 
 def parse_cml():
@@ -59,17 +65,18 @@ def parse_cml():
     parser.add_argument('--version', type=str)
     parser.add_argument('--build-number', type=str)
     parser.add_argument('--packages',  nargs='*', action='store', type=str)
+    parser.add_argument('--build-installer',  action='store_true', default=False)
+    parser.add_argument('--installer-target-dir', type=str, default='')
 
     args = parser.parse_args()
     return args
 
 
-def parse_input_json(json_path)->list:
+def parse_input_json(json_path)->dict:
 
     with open(json_path, 'r') as json_in:
         json_dict = json.load(json_in)
-        conda_dirs_list = json_dict['conda_dirs']
-        return conda_dirs_list
+        return json_dict
 
 
 @contextmanager
@@ -134,6 +141,27 @@ def concatenate_files(filenames, out_fname):
         for fname in filenames:
             with open(fname) as infile:
                 outfile.write(infile.read())
+
+
+def build_installer_win(json_dict: dict, version: str, build_number: str):
+    current_script_dir = Path(__file__).parent
+    source_dir = current_script_dir
+    installer_builder_script = current_script_dir.joinpath('build_win_installer.py')
+    python_exe = sys.executable
+
+    certificate = json_dict['certificate']
+    nsis_exe = json_dict['nsis_exe']
+
+    installer_target_dir = json_dict['installer_target_dir']
+
+    cmd = f'{python_exe} {installer_builder_script} --version {version} --build-number {build_number} ' \
+          f'--source-dir {source_dir} --target-dir {installer_target_dir} --nsis-exe "{nsis_exe}" ' \
+          f'--certificate {certificate}'
+
+    print('Installer building command:')
+    print(cmd)
+
+    os.system(cmd)
 
 
 if __name__ == '__main__':
