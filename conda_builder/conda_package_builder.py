@@ -119,7 +119,7 @@ def build_conda_package(conda_build_dir, version, build_number):
         meta_yaml_path = conda_build_workdir.joinpath('meta.yaml')
         prepare_conda_meta(version=version, build_number=build_number, meta_yaml_path=meta_yaml_path)
 
-        command_build = f"cd {str(conda_build_dir)} {command_join_char} conda activate base " \
+        command_build = f"cd {str(conda_build_workdir)} {command_join_char} conda activate base " \
                         f"{command_join_char} conda build ."
 
         print ('building conda package using command: ')
