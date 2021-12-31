@@ -45,13 +45,13 @@ def main():
     if packages is not None and len(packages):
         configured_packages = packages
 
-    # # building package after package
-    # for package_data in conda_dirs_data_list:
-    #     package_name = next(iter(package_data.keys()))
-    #     conda_recipe_dir = next(iter(package_data.values()))
-    #
-    #     if package_name in configured_packages:
-    #         build_conda_package(conda_build_dir=conda_recipe_dir, version=version, build_number=build_number)
+    # building package after package
+    for package_data in conda_dirs_data_list:
+        package_name = next(iter(package_data.keys()))
+        conda_recipe_dir = next(iter(package_data.values()))
+
+        if package_name in configured_packages:
+            build_conda_package(conda_build_dir=conda_recipe_dir, version=version, build_number=build_number)
 
     if build_installer:
         if sys.platform.startswith('win'):
