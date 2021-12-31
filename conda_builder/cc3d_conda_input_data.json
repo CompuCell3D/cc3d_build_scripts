@@ -5,6 +5,8 @@
         {"cc3d_twedit5": "d:/cc3d-twedit5/conda-recipes"},
         {"compucell3d": "d:/CC3D_PY3_GIT/conda-recipes-compucell3d"}
     ],
+    "nsis_exe": "C:/Program Files (x86)/NSIS/makensis.exe",
+    "certificate" : ""
     "cc3d_":"d:/CC3D_PY3_GIT/conda-recipes",
     "cc3d_player5_": "d:/cc3d-player5/conda-recipes",
     "cc3d_twedit5_": "d:/cc3d-twedit5/conda-recipes",

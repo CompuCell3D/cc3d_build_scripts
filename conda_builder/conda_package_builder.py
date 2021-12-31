@@ -2,13 +2,13 @@
 example command line:
 
 conda_package_builder.py --version 4.3.2 --build_number 2
---json_config D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\cc3d_conda_input_data.json
+--json_config D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\cc3d_conda_input_data_do_not_commit.json
 
 example command line with specified packages
 
 
 conda_package_builder.py --version 4.3.2 --build_number 2
---json_config D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\cc3d_conda_input_data.json --packages  cc3d cc3d_player5
+--json_config D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\cc3d_conda_input_data_do_not_commit.json --packages  cc3d cc3d_player5
 
 
 allowed packages cc3d cc3d_player5, cc3d_twedit5 compucell3d. Build order matters
@@ -30,6 +30,7 @@ def main():
     build_number = args.build_number
     json_path = args.json_config
     packages = args.packages
+
 
     conda_dirs_data_list = parse_input_json(json_path=json_path)
 
@@ -133,10 +134,6 @@ def concatenate_files(filenames, out_fname):
         for fname in filenames:
             with open(fname) as infile:
                 outfile.write(infile.read())
-
-
-
-
 
 
 if __name__ == '__main__':
