@@ -8,14 +8,11 @@
 # source dir would have win_prerequisites  and win_nsis subfolders
 #
 # """
-import json
+
 import argparse
 from pathlib import Path
 import shutil
-from contextlib import contextmanager
 import os
-import sys
-from jinja2 import Environment, FileSystemLoader
 
 
 def main():
