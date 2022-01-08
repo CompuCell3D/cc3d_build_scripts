@@ -12,6 +12,8 @@ conda_package_builder.py --version 4.3.2 --build-number 2
 --json-config D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\cc3d_conda_input_data_do_not_commit.json --packages  cc3d cc3d_player5
 --build-installer
 
+--skip-conda-build - skips building of the conda packages and allows users to build only installer
+
 allowed packages cc3d cc3d_player5, cc3d_twedit5 compucell3d. Build order matters
 """
 import json
@@ -32,6 +34,7 @@ def main():
     json_path = args.json_config
     packages = args.packages
     build_installer = args.build_installer
+    skip_conda_build = args.skip_conda_build
 
     json_dict = parse_input_json(json_path=json_path)
     conda_dirs_data_list = json_dict['conda_dirs']
@@ -46,12 +49,13 @@ def main():
         configured_packages = packages
 
     # building package after package
-    for package_data in conda_dirs_data_list:
-        package_name = next(iter(package_data.keys()))
-        conda_recipe_dir = next(iter(package_data.values()))
+    if not skip_conda_build:
+        for package_data in conda_dirs_data_list:
+            package_name = next(iter(package_data.keys()))
+            conda_recipe_dir = next(iter(package_data.values()))
 
-        if package_name in configured_packages:
-            build_conda_package(conda_build_dir=conda_recipe_dir, version=version, build_number=build_number)
+            if package_name in configured_packages:
+                build_conda_package(conda_build_dir=conda_recipe_dir, version=version, build_number=build_number)
 
     if build_installer:
         if sys.platform.startswith('win'):
@@ -68,6 +72,7 @@ def parse_cml():
     parser.add_argument('--build-number', type=str)
     parser.add_argument('--packages',  nargs='*', action='store', type=str)
     parser.add_argument('--build-installer',  action='store_true', default=False)
+    parser.add_argument('--skip-conda-build', action='store_true', default=False)
     parser.add_argument('--installer-target-dir', type=str, default='')
 
     args = parser.parse_args()

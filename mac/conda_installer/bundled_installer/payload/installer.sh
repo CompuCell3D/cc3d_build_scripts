@@ -44,4 +44,6 @@ conda install -y -c compucell3d -c conda-forge ${COMPUCELL3D_PKG}
 # copying demos
 echo "Installing Demos"
 cp ${SCRIPT_DIR}/Demos.zip ${INSTALLATION_DIR}
-unzip ${INSTALLATION_DIR}/Demos.zip
+
+unzip ${INSTALLATION_DIR}/Demos.zip -d ${INSTALLATION_DIR}
+rm ${INSTALLATION_DIR}/Demos.zip
