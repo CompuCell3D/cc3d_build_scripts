@@ -2,12 +2,12 @@
 # save as ./decompress
 
 echo ""
-echo "Self Extracting Installer"
+echo "CompuCell3D: Self Extracting Installer"
 echo ""
 
 function printUsage() {
   echo -e "\033[1mUsage:\033[0m"
-  echo "$0 [INSTALLATION_DIR] "
+  echo "$0 [INSTALLATION_DIR] [version - optional]"  
   echo
   echo -e "\033[1mOptions:\033[0m"
   echo "  -h (--help)"
@@ -19,18 +19,23 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then
   printUsage
   exit 1
 fi
+
 if [ -z "$1" ]; then
-  echo "Please enter installation directory"
-  echo
-  printUsage
-  exit 1
+  INSTALLATION_DIR=$HOME/CC3D
+#  echo "Please enter installation directory"
+#  echo
+#  printUsage
+#  exit 1
 else
-  echo "Installation directory : $1"
+  INSTALLATION_DIR=$1
+  echo "Installation directory : $INSTALLATION_DIR"
+
 fi
 
-INSTALLATION_DIR=$1
 
-echo "this is installation dir : $INSTALLATION_DIR"
+
+echo "Will use the following installation dir : $INSTALLATION_DIR"
+echo "For full command line options pass -h option to the installer script"
 
 #export TMPDIR=`mktemp -d /tmp/selfextract.XXXXXX`
 export TMPDIR=/tmp/extractpayload$RANDOM
@@ -43,8 +48,8 @@ tail -n+$ARCHIVE $0 | tar xzv -C $TMPDIR
 
 CDIR=`pwd`
 cd $TMPDIR
-chmod 755 ./installer
-./installer $INSTALLATION_DIR
+chmod 755 ./installer.sh
+./installer.sh $INSTALLATION_DIR
 
 cd $CDIR
 rm -rf $TMPDIR

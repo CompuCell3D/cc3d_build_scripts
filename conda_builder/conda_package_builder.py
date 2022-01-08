@@ -1,15 +1,15 @@
 """
 example command line:
 
-conda_package_builder.py --version 4.3.2 --build_number 2
---json_config D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\cc3d_conda_input_data_do_not_commit.json
+conda_package_builder.py --version 4.3.2 --build-number 2
+--json-config D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\cc3d_conda_input_data_do_not_commit.json
 --build-installer
 
 example command line with specified packages
 
 
-conda_package_builder.py --version 4.3.2 --build_number 2
---json_config D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\cc3d_conda_input_data_do_not_commit.json --packages  cc3d cc3d_player5
+conda_package_builder.py --version 4.3.2 --build-number 2
+--json-config D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder\cc3d_conda_input_data_do_not_commit.json --packages  cc3d cc3d_player5
 --build-installer
 
 allowed packages cc3d cc3d_player5, cc3d_twedit5 compucell3d. Build order matters
@@ -56,6 +56,8 @@ def main():
     if build_installer:
         if sys.platform.startswith('win'):
             build_installer_win(json_dict=json_dict, version=version, build_number=build_number)
+        elif sys.platform.startswith('darwin'):
+            build_installer_mac(json_config_path=json_path, version=version, build_number=build_number)
 
 
 def parse_cml():
@@ -70,13 +72,6 @@ def parse_cml():
 
     args = parser.parse_args()
     return args
-
-
-def parse_input_json(json_path)->dict:
-
-    with open(json_path, 'r') as json_in:
-        json_dict = json.load(json_in)
-        return json_dict
 
 
 @contextmanager
@@ -162,6 +157,34 @@ def build_installer_win(json_dict: dict, version: str, build_number: str):
     print(cmd)
 
     os.system(cmd)
+
+
+def build_installer_mac(json_config_path: Path, version: str, build_number: str):
+
+    json_dict = parse_input_json(json_path=json_config_path)
+    installer_target_dir = json_dict['installer_target_dir']
+
+    current_script_dir = Path(__file__).parent
+    installer_builder_script = current_script_dir.joinpath('build_mac_installer.py')
+    bundled_installer_dir = current_script_dir.joinpath('mac_bundled_installer')
+    python_exe = sys.executable
+
+    cmd = f'{python_exe} {installer_builder_script} --version {version} --build-number {build_number} ' \
+          f'--json-config {str(json_config_path)} --bundled-installer-dir {bundled_installer_dir} ' \
+          f'--target-dir {installer_target_dir}'
+
+    print('Installer building command:')
+    print(cmd)
+
+    os.system(cmd)
+
+
+
+def parse_input_json(json_path)->dict:
+
+    with open(json_path, 'r') as json_in:
+        json_dict = json.load(json_in)
+        return json_dict
 
 
 if __name__ == '__main__':
