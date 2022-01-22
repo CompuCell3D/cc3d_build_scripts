@@ -8,6 +8,7 @@ import argparse
 import cc3d
 from sysconfig import get_paths
 import sysconfig
+import site
 from pprint import pprint
 
 
@@ -19,25 +20,29 @@ def main():
     conda_env_name = find_current_conda_env(conda_exec=conda_exec)
     print('conda_env_name=', conda_env_name)
     conda_exec = Path(conda_exec)
-    conda_shell_script = conda_exec.parent.parent.joinpath('etc', 'profile.d','conda.sh')
+    conda_shell_script = conda_exec.parent.parent.joinpath('etc', 'profile.d', 'conda.sh')
+
+    compucell3d_git_dir = Path('/Users/m/CC3D_PY3_GIT')
+
+    developer_zone_source = compucell3d_git_dir.joinpath('CompuCell3D', 'DeveloperZone')
+    compucell3d_full_source_path = compucell3d_git_dir.joinpath('CompuCell3D', 'core', 'CompuCell3D')
 
 
-    source_code_dir = Path('/Users/m/CC3D_PY3_GIT')
-    developer_zone_source = source_code_dir.joinpath('CompuCell3D', 'DeveloperZone')
-    compucell3d_full_source_path = source_code_dir.joinpath('CompuCell3D', 'core', 'CompuCell3D')
 
-
-    stem_build_dir = source_code_dir.stem + '_developer_zone_build_test'
-    stem_install_dir = source_code_dir.stem + '_developer_zone_install'
-    build_dir = source_code_dir.parent.joinpath(stem_build_dir)
-    install_dir = source_code_dir.parent.joinpath(stem_install_dir)
+    stem_build_dir = compucell3d_git_dir.stem + '_developer_zone_build_test'
+    stem_install_dir = compucell3d_git_dir.stem + '_developer_zone_install'
+    build_dir = compucell3d_git_dir.parent.joinpath(stem_build_dir)
     build_dir.mkdir(exist_ok=True, parents=True)
+    # install_dir = compucell3d_git_dir.parent.joinpath(stem_install_dir)
+
     print(sysconfig.get_config_var('LDLIBRARY'))
     print(sysconfig.get_config_var('LIBDIR'))
     ld_library = Path(sysconfig.get_config_var('LDLIBRARY'))
     lib_dir = Path(sysconfig.get_config_var('LIBDIR'))
+    site_packages_dir = Path(site.getsitepackages()[0])
     ld_library_abs_path = lib_dir.joinpath(ld_library)
     python_exec = sys.executable
+    install_dir = site_packages_dir
 
 
 
@@ -72,17 +77,18 @@ def main():
     # os.system(f'source {conda_shell_script} ; conda activate {conda_env_name} ; {cmd_test}')
 
     cmd_cmake_generate = f'{cmake_exec} -G "{cmake_generator_name}" -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo ' \
-          f'-DCMAKE_INSTALL_PREFIX:PATH={install_dir} ' \
-          f'-DCMAKE_CXX_COMPILER:STRING={cmake_cxx_compiler} ' \
-          f'-DCMAKE_C_COMPILER:STRING={cmake_c_compiler} ' \
-          f'-DSWIG_EXECUTABLE:PATH={swig_exec} ' \
-          f'-DCOMPUCELL3D_FULL_SOURCE_PATH:PATH={compucell3d_full_source_path} ' \
-          f'-DCOMPUCELL3D_INSTALL_PATH:PATH={install_dir} ' \
-          f'-S {developer_zone_source} ' \
-          f'-B {build_dir} ' \
+            f'-DCMAKE_INSTALL_PREFIX:PATH={install_dir} ' \
+            f'-DCMAKE_CXX_COMPILER:STRING={cmake_cxx_compiler} ' \
+            f'-DCMAKE_C_COMPILER:STRING={cmake_c_compiler} ' \
+            f'-DCOMPUCELL3D_GIT_DIR:PATH={compucell3d_git_dir} ' \
+            f'-DCOMPUCELL3D_INSTALL_PATH:PATH={install_dir} ' \
+            f'-S {developer_zone_source} ' \
+            f'-B {build_dir} ' \
 
     os.system(f'source {conda_shell_script} ; conda activate {conda_env_name} ; {cmd_cmake_generate}')
 
+
+#          f'-DCOMPUCELL3D_FULL_SOURCE_PATH:PATH={compucell3d_full_source_path} ' \
     #
     # os.system(cmd_test)
 
