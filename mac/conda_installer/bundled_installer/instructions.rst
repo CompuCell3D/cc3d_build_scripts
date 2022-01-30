@@ -1,6 +1,8 @@
 Building OSX/linux bundle
 =========================
 
+Note: Entry script to generated installer is decompress - this is where we shold add command line options
+
 This recipe is based on the following article
 
 https://www.supertechcrew.com/create-self-extracting-running-archive/

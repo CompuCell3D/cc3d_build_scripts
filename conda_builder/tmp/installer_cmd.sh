@@ -21,7 +21,7 @@ function print_usage {
   echo "./installer.sh -h (print_usage)"
 }
 
-while getopts i:v:h option
+while getopts i:v: option
 do
     case "${option}"
         in

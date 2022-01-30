@@ -5,36 +5,68 @@ echo ""
 echo "CompuCell3D: Self Extracting Installer"
 echo ""
 
-function printUsage() {
-  echo -e "\033[1mUsage:\033[0m"
-  echo "$0 [INSTALLATION_DIR] [version - optional]"  
-  echo
-  echo -e "\033[1mOptions:\033[0m"
-  echo "  -h (--help)"
+COMPUCELL3D_PKG=compucell3d
+INSTALLATION_DIR=$HOME/CC3D
+VERSION=''
 
+function print_usage() {
+  echo
+  echo "cc3d-installer-osx.sh: "
+  echo
+  echo "Options:"
+  echo
+  echo "[-i] installation_dir  [-v] version  [-h] help"
+  echo
+  echo "Examples:"
+  echo "========"
+  echo
+  echo "./cc3d-installer-osx.sh  (in this case latest version will be installed in the default install dir \$HOME/CC3D)"
+  echo "./cc3d-installer-osx.sh -i /Users/m/CC3D (in this case the latest version of CC3D will be installed)"
+  echo "./cc3d-installer-osx.sh -i /Users/m/CC3D -v 4.3.2"
+  echo "./cc3d-installer-osx.sh -h (print_usage)"
 }
 
-#Argument validation
-if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-  printUsage
-  exit 1
-fi
+while getopts i:v:h option; do
+  case "${option}" in
 
-if [ -z "$1" ]; then
-  INSTALLATION_DIR=$HOME/CC3D
-#  echo "Please enter installation directory"
-#  echo
-#  printUsage
-#  exit 1
+  i) INSTALLATION_DIR=${OPTARG} ;;
+  v) VERSION=${OPTARG} ;;
+  h) print_usage ;exit 0;;
+  \?) print_usage ; exit 0;;
+  esac
+done
+
+echo "INSTALLATION_DIR : $INSTALLATION_DIR"
+echo "VERSION   : $VERSION"
+
+if test -z "$VERSION"; then
+  COMPUCELL3D_PKG=compucell3d
 else
-  INSTALLATION_DIR=$1
-  echo "Installation directory : $INSTALLATION_DIR"
-
+  COMPUCELL3D_PKG="${COMPUCELL3D_PKG}=${VERSION}"
 fi
 
 
+# look for empty dira
+if [ -d "$INSTALLATION_DIR" ]
+then
+	if [ "$(ls -A $INSTALLATION_DIR)" ]; then
+	   echo
+	   echo "Installer Error - target directory non-empty"
+	   echo "==========================================="
+	   echo
+     echo "The directory $INSTALLATION_DIR exists and is not empty."
+     echo "CC3D installer requires installation directory ($INSTALLATION_DIR) to be either empty or not exist. Please (re)move $INSTALLATION_DIR"
+     echo "before installing CC3D"
+     exit 1
+	else
+    echo "Will install CC3D to $INSTALLATION_DIR"
+	fi
+else
+	echo "Will install CC3D to $INSTALLATION_DIR"
+fi
 
-echo "Will use the following installation dir : $INSTALLATION_DIR"
+
+echo "Will use the following installation dir : $INSTALLATION_DIR to install ${COMPUCELL3D_PKG}"
 echo "For full command line options pass -h option to the installer script"
 
 #export TMPDIR=`mktemp -d /tmp/selfextract.XXXXXX`
@@ -42,14 +74,20 @@ export TMPDIR=/tmp/extractpayload$RANDOM
 mkdir -p $TMPDIR
 chmod 700 $TMPDIR
 
-ARCHIVE=`awk '/^__ARCHIVE_BELOW__/ {print NR + 1; exit 0; }' $0`
+ARCHIVE=$(awk '/^__ARCHIVE_BELOW__/ {print NR + 1; exit 0; }' $0)
 
 tail -n+$ARCHIVE $0 | tar xzv -C $TMPDIR
 
-CDIR=`pwd`
+CDIR=$(pwd)
 cd $TMPDIR
 chmod 755 ./installer.sh
-./installer.sh $INSTALLATION_DIR
+
+
+if test -z "$VERSION"; then
+  ./installer.sh -i ${INSTALLATION_DIR}
+else
+  ./installer.sh -i ${INSTALLATION_DIR} -v ${VERSION}
+fi
 
 cd $CDIR
 rm -rf $TMPDIR
