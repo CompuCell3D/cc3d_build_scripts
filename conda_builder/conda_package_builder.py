@@ -15,6 +15,12 @@ conda_package_builder.py --version 4.3.2 --build-number 2
 --skip-conda-build - skips building of the conda packages and allows users to build only installer
 
 allowed packages cc3d cc3d_player5, cc3d_twedit5 compucell3d. Build order matters
+
+# linux example:
+conda_package_builder.py --version 4.3.2 --build-number 2
+--json-config /home/m/cc3d_build_scripts/conda_builder/cc3d_conda_input_data_linux.json
+
+
 """
 import json
 import argparse
@@ -128,7 +134,7 @@ def build_conda_package(conda_build_dir, version, build_number):
         prepare_conda_meta(version=version, build_number=build_number, meta_yaml_path=meta_yaml_path)
 
         command_build = f"cd {str(conda_build_workdir)} {command_join_char} conda activate base " \
-                        f"{command_join_char} conda build ."
+                        f"{command_join_char} conda build . -c conda-forge -c compucell3d -c local"
 
         print ('building conda package using command: ')
         print(command_build)
