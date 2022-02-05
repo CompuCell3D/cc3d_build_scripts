@@ -7,5 +7,6 @@
     ],
     "nsis_exe": "",
     "certificate" : "",
-    "installer_target_dir": "/home/m/binaries"
+    "installer_target_dir": "/home/m/binaries",
+    "demos": "/home/m/CC3D_PY3_GIT/CompuCell3D/core/Demos"
 }

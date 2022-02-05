@@ -3,6 +3,7 @@
 COMPUCELL3D_PKG=compucell3d
 INSTALLATION_DIR=$HOME/CC3D
 VERSION=''
+MINICONDA_INSTALLER=Miniconda3-latest-Linux-x86_64.sh
 
 function print_usage {
   echo
@@ -16,8 +17,8 @@ function print_usage {
   echo "========"
   echo
   echo "./installer.sh  (in this case latest version will be installed in the default install dir \$HOME/CC3D)"
-  echo "./installer.sh -i /Users/m/CC3D (in this case the latest version of CC3D will be installed)"
-  echo "./installer.sh -i /Users/m/CC3D -v 4.3.2"
+  echo "./installer.sh -i /home/m/CC3D (in this case the latest version of CC3D will be installed)"
+  echo "./installer.sh -i /home/m/m/CC3D -v 4.3.2"
   echo "./installer.sh -h (print_usage)"
 }
 
@@ -48,14 +49,9 @@ echo "Installing ${COMPUCELL3D_PKG}"
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
 echo "INSTALLING Miniconda 3"
-${SCRIPT_DIR}/Miniconda3-py37_4.10.3-MacOSX-x86_64.sh -s -b -p ${INSTALLATION_DIR}/miniconda3
+${SCRIPT_DIR}/${MINICONDA_INSTALLER} -s -b -p ${INSTALLATION_DIR}/miniconda3
 
 source ${INSTALLATION_DIR}/miniconda3/bin/activate base
-
-# copying compucell3d.app and twedit++.app
-
-cp -R ${SCRIPT_DIR}/compucell3d.app ${INSTALLATION_DIR}/miniconda3
-cp -R ${SCRIPT_DIR}/twedit++.app ${INSTALLATION_DIR}/miniconda3
 
 cp ${SCRIPT_DIR}/run_scripts/* ${INSTALLATION_DIR}
 
