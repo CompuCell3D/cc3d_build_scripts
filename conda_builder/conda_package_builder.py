@@ -29,6 +29,12 @@ conda_package_builder.py --version 4.3.2 --build-number 2
 --skip-conda-build - skips building of the conda packages and allows users to build only installer
 
 allowed packages cc3d cc3d_player5, cc3d_twedit5 compucell3d. Build order matters
+
+# linux example:
+conda_package_builder.py --version 4.3.2 --build-number 2
+--json-config /home/m/cc3d_build_scripts/conda_builder/cc3d_conda_input_data_linux.json
+
+
 """
 import json
 import argparse
@@ -95,6 +101,10 @@ def main():
             build_installer_win(json_dict=json_dict, version=version, build_number=build_number)
         elif sys.platform.startswith('darwin'):
             build_installer_mac(json_config_path=json_path, version=version, build_number=build_number)
+        elif sys.platform.startswith('linux'):
+            build_installer_linux(json_config_path=json_path, version=version, build_number=build_number)
+        else:
+            raise RuntimeError(f"Unsupported OS : ${sys.platform}")
 
 
 def parse_cml():
@@ -282,6 +292,26 @@ def build_installer_mac(json_config_path: Path, version: str, build_number: str)
     current_script_dir = Path(__file__).parent
     installer_builder_script = current_script_dir.joinpath('build_mac_installer.py')
     bundled_installer_dir = current_script_dir.joinpath('mac_bundled_installer')
+    python_exe = sys.executable
+
+    cmd = f'{python_exe} {installer_builder_script} --version {version} --build-number {build_number} ' \
+          f'--json-config {str(json_config_path)} --bundled-installer-dir {bundled_installer_dir} ' \
+          f'--target-dir {installer_target_dir}'
+
+    print('Installer building command:')
+    print(cmd)
+
+    os.system(cmd)
+
+
+def build_installer_linux(json_config_path: Path, version: str, build_number: str):
+
+    json_dict = parse_input_json(json_path=json_config_path)
+    installer_target_dir = json_dict['installer_target_dir']
+
+    current_script_dir = Path(__file__).parent
+    installer_builder_script = current_script_dir.joinpath('build_linux_installer.py')
+    bundled_installer_dir = current_script_dir.joinpath('linux_installer', 'bundled_installer')
     python_exe = sys.executable
 
     cmd = f'{python_exe} {installer_builder_script} --version {version} --build-number {build_number} ' \
