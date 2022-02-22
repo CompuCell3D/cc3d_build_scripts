@@ -1,22 +1,45 @@
-
+#
 
 COMPUCELL3D_PKG=compucell3d
+INSTALLATION_DIR=$HOME/CC3D
+VERSION=''
 
-if [ -z "$1" ]; then
-  INSTALLATION_DIR=$HOME/CC3D
-  echo "Will use default location for installation of CC3D: ${INSTALLATION_DIR}"
+function print_usage {
+  echo
+  echo "installer.sh: "
+  echo
+  echo "Options:"
+  echo
+  echo "[-i] installation_dir  [-v] version  [-h] help"
+  echo
+  echo "Examples:"
+  echo "========"
+  echo
+  echo "./installer.sh  (in this case latest version will be installed in the default install dir \$HOME/CC3D)"
+  echo "./installer.sh -i /Users/m/CC3D (in this case the latest version of CC3D will be installed)"
+  echo "./installer.sh -i /Users/m/CC3D -v 4.3.2"
+  echo "./installer.sh -h (print_usage)"
+}
 
+while getopts i:v:h option
+do
+    case "${option}"
+        in
+        i)INSTALLATION_DIR=${OPTARG};;
+        v)VERSION=${OPTARG};;
+        h)print_usage;;
+        \? )print_usage;;
+    esac
+done
+
+echo "INSTALLATION_DIR : $INSTALLATION_DIR"
+echo "VERSION   : $VERSION"
+
+if test -z "$VERSION"
+then
+      COMPUCELL3D_PKG=compucell3d
 else
-  INSTALLATION_DIR=$1
-  echo "Installation directory : $1"
-fi
-
-if [ -z "$2" ]; then
-  echo "Will use default (latest) version of CC3D"
-else
-  VERSION=$2
-  COMPUCELL3D_PKG="${COMPUCELL3D_PKG}=${VERSION}"
-  echo "Installation directory : $1"
+      COMPUCELL3D_PKG="${COMPUCELL3D_PKG}=${VERSION}"
 fi
 
 echo "Installing ${COMPUCELL3D_PKG}"
