@@ -10,6 +10,7 @@ from sysconfig import get_paths
 import sysconfig
 import site
 from pprint import pprint
+import tempfile
 
 
 def main():
@@ -44,7 +45,7 @@ def main():
 
 
 
-    stem_build_dir = compucell3d_git_dir.stem + '_developer_zone_build_test'
+    stem_build_dir = compucell3d_git_dir.stem + '_developer_zone_build_test_1'
     stem_install_dir = compucell3d_git_dir.stem + '_developer_zone_install'
     build_dir = compucell3d_git_dir.parent.joinpath(stem_build_dir)
     build_dir.mkdir(exist_ok=True, parents=True)
@@ -117,7 +118,24 @@ def main():
 
     # os.system(f'source {conda_shell_script} ; conda activate {conda_env_name} ; {cmd_cmake_generate}')
     # os.system(f'conda activate {conda_env_name} & {cmd_cmake_generate}')
-    os.system(f'conda activate {conda_env_name} & {cmd_cmake_generate}')
+    # os.system(f' {activate_script} & conda activate {conda_env_name} & {cmd_cmake_generate}')
+    result = subprocess.run(f'{activate_script} & conda activate {conda_env_name} & {cmd_cmake_generate}', stdout=subprocess.PIPE)
+    print(result.stdout.decode('utf-8'))
+
+    # with tempfile.TemporaryDirectory() as tmpdirname:
+    #     dev_zone_config_shell_script = Path(tmpdirname).joinpath('run_dev_config_script.sh')
+    #     with dev_zone_config_shell_script.open('w') as out:
+    #         out.write(f'#!/bin/sh\nsource {conda_specs["conda_shell_script"]} ; '
+    #                   f'conda activate {conda_specs["conda_env_name"]} ; {cmd_cmake_generate}')
+    #     dev_zone_config_shell_script.chmod(dev_zone_config_shell_script.stat().st_mode | stat.S_IEXEC)
+    #
+    #     result = subprocess.run(f'{dev_zone_config_shell_script}', stdout=subprocess.PIPE)
+
+    # result = subprocess.run(f"conda activate {conda_env_name} & {cmd_cmake_generate}", stdout=subprocess.PIPE)
+    # print(result.stdout.decode('utf-8'))
+
+
+
 
 
 #          f'-DCOMPUCELL3D_FULL_SOURCE_PATH:PATH={compucell3d_full_source_path} ' \
