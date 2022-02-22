@@ -85,7 +85,7 @@ def build_installer(bundled_installer_dir: Path, target_dir: Path, version: str,
     installer_target_path.parent.mkdir(exist_ok=True, parents=True)
     # this will be created after we run cmd_build
     source_installer_path = bundled_installer_dir.joinpath('cc3d-installer-osx.sh')
-
+    print(f'bundled_installer_dir={bundled_installer_dir}')
     with cd(bundled_installer_dir):
         os.system('pwd')
         os.system('ls -la')

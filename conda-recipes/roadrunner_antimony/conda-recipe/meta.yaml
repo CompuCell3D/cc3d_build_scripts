@@ -1,0 +1,36 @@
+# when building as standalone package uncomment line below and set version and build_number to proper values
+{% set version = "0.0.1" %}
+{% set build_number = "1" %}
+{% set python_version = "3.7" %}
+
+package:
+  name: cc3d-network-solvers
+  version: {{ version }}
+
+about:
+  home: https://github.com/sys-bio/roadrunner, https://github.com/sys-bio/antimony, https://github.com/CompuCell3D/CompuCell3DExtensions
+  license: MIT
+
+extra:
+  maintainers: T.J. Sego, Maciek Swat, Herbert Sauro
+
+source:
+  # url: https://github.com/CompuCell3D/cc3d-player5/archive/master.tar.gz
+  path: ../
+
+build:
+  number: {{ build_number }}
+#  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python={{ python_version }}
+    - setuptools
+
+  run:
+    - python={{ python_version }}
+    - cc3dext_maboss
+
+test:
+  imports:
+    - sys
