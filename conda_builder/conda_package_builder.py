@@ -11,7 +11,10 @@ from compucell3d channel that will bring all those packages
 # if you have trouble after installation clear cache and remove cmake build directory - start fresh
 # however you need to work from base environment. so make sure that for now llvm-openmp is at version 12.0 not 13.x
 
-# to make sure you detect correct pythoh start pycharm from miniconda3 base env that has all above dependencies
+# to make sure you detect correct python start pycharm from miniconda3 base env that has all above dependencies
+
+On linux:
+https://stackoverflow.com/questions/13702425/source-command-not-found-in-sh-shell
 
 example command line:
 
@@ -56,9 +59,9 @@ def main():
     build_installer = args.build_installer
     skip_conda_build = args.skip_conda_build
 
-    command_build = f"source /Users/m/miniconda3/etc/profile.d/conda.sh ; conda activate base ;which cmake"
+    command_build = f"source /home/m/miniconda3/etc/profile.d/conda.sh ; conda activate base ;which cmake"
     os.system(command_build)
-
+    # sys.exit(0)
     # print('building conda package using command: ')
     # print(command_build)
     #
@@ -245,8 +248,10 @@ def build_conda_package(conda_build_dir, version, build_number):
 
         if sys.platform.startswith('darwin'):
             cmd_activate_sh = f'source /Users/m/miniconda3/etc/profile.d/conda.sh {command_join_char} conda activate base'
+        elif sys.platform.startswith('lin'):
+            cmd_activate_sh = f'source /home/m/miniconda3/etc/profile.d/conda.sh ; conda activate base '
         else:
-            cmd_activate_sh = f'{command_join_char} conda activate base '
+            cmd_activate_sh = f'conda activate base '
 
         command_build = f"cd {str(conda_build_workdir)} {command_join_char} {cmd_activate_sh} " \
                         f"{command_join_char} conda build . -c conda-forge -c compucell3d"

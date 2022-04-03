@@ -57,9 +57,17 @@ def parse_input_json(json_path)->dict:
 
 
 def compress_demos_folder(demos_dir: Path, bundled_installer_dir: Path):
+
     demos_target_path = bundled_installer_dir.joinpath('payload', 'Demos.zip')
-    cmd = f'zip -r {str(demos_target_path)} {str(demos_dir)}'
-    os. system(cmd)
+    # cmd = f'zip -r {str(demos_target_path)} {str(demos_dir)}'
+
+    with cd(demos_dir.parent):
+        demos_target_path.unlink()
+        print('demos_dir.parent=', demos_dir.parent)
+        print('demos_target_path=', demos_target_path)
+        cmd = f'zip -r {str(demos_target_path)} Demos'
+        print(cmd)
+        os. system(cmd)
 
 
 def get_installer_path(target_dir: Path, version: str, build_number: str) -> Path:

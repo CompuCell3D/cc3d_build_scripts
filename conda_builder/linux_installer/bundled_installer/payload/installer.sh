@@ -1,7 +1,7 @@
 #
 
 COMPUCELL3D_PKG=compucell3d
-INSTALLATION_DIR=$HOME/CC3D
+INSTALLATION_DIR=$HOME/CompuCell3D
 VERSION=''
 MINICONDA_INSTALLER=Miniconda3-latest-Linux-x86_64.sh
 
@@ -16,9 +16,9 @@ function print_usage {
   echo "Examples:"
   echo "========"
   echo
-  echo "./installer.sh  (in this case latest version will be installed in the default install dir \$HOME/CC3D)"
-  echo "./installer.sh -i /home/m/CC3D (in this case the latest version of CC3D will be installed)"
-  echo "./installer.sh -i /home/m/m/CC3D -v 4.3.2"
+  echo "./installer.sh  (in this case latest version will be installed in the default install dir \$HOME/CompuCell3D)"
+  echo "./installer.sh -i /home/m/CompuCell3D (in this case the latest version of CC3D will be installed)"
+  echo "./installer.sh -i /home/m/m/CompuCell3D -v 4.3.2"
   echo "./installer.sh -h (print_usage)"
 }
 
