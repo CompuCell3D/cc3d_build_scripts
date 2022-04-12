@@ -12,12 +12,11 @@
 ; !define CC3D_BUILD_NUMBER "1"
 
 !define VERSION "${CC3D_VERSION}.${CC3D_BUILD_NUMBER}"
-!define INSTALLATION_SOURCE_DIR "D:\install_projects\${CC3D_VERSION}"
-!define INSTALLER_NAME "D:\CC3D_FILES_SVN\binaries\${CC3D_VERSION}\windows\CompuCell3D-setup-${VERSION}.exe"
-
-
+!define INSTALLATION_SOURCE_DIR "D:\install_projects\${VERSION}"
+!define INSTALLER_NAME "D:\CC3D_FILES_SVN\binaries\${VERSION}\windows\CompuCell3D-setup-${VERSION}.exe"
 
 !define APP_NAME "CompuCell3D"
+!define TWEDIT_APP_NAME "Twedit++"
 !define COMP_NAME "Biocomplexity Institute"
 !define WEB_SITE "http://www.compucell3d.org"
 
@@ -54,6 +53,7 @@ Function .onInit
     ; strcpy $SUGGESTED_INSTALL_PATH $R0
 
     StrCpy $InstDir "$R0\CompuCell3D"
+    ;StrCpy $InstDir "$R0\CC3D"
 
 FunctionEnd
 ### END OF CUSTOM MODIFICATION
@@ -143,22 +143,17 @@ SectionEnd
 
 Section -Prerequisites
 
-  SetOutPath $INSTDIR\Prerequisites
+  SetOutPath "$INSTDIR"
+    File "${INSTALLATION_SOURCE_DIR}\Demos.zip"
+
+  SetOutPath "$INSTDIR\Prerequisites"
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\Miniconda3-py37_4.10.3-Windows-x86_64.exe"    
     ExecWait "$INSTDIR\Prerequisites\Miniconda3-py37_4.10.3-Windows-x86_64.exe /InstallationType=JustMe /RegisterPython=0 /S /D=$INSTDIR\Miniconda3"
+    ;using python to decompress demos
+    ExecWait "$INSTDIR\Miniconda3\python -m zipfile -e $INSTDIR\Demos.zip $INSTDIR\Demos"
 
-    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\cc3d-install.bat"    
+    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\cc3d-install.bat"
     ExecWait "$INSTDIR\Prerequisites\cc3d-install.bat ${CC3D_VERSION} & pause"
-
-    ;File "${INSTALLATION_SOURCE_DIR}\Prerequisites\vc_redist_2015.x64.exe"
-    ; ExecWait "$INSTDIR\Prerequisites\vcredist_x86.exe /q:a /c:$\"VCREDI~1.EXE /q:a /c:$\"$\"msiexec /i vcredist.msi /qb!$\"$\" $\""
-    ;ExecWait "$INSTDIR\Prerequisites\vc_redist_2015.x64.exe /q /norestart"
-    ; ExecWait "$INSTDIR\Prerequisites\vc_redist_2015.x64.exe /norestart"
-    ;File "${INSTALLATION_SOURCE_DIR}\Prerequisites\vc_redist_2013.x64.exe"
-    ;ExecWait "$INSTDIR\Prerequisites\vc_redist_2013.x64.exe  /install /quiet /norestart"
-
-    Goto vs2008Libs
-  vs2008Libs:
 
 SectionEnd
 
@@ -173,6 +168,7 @@ SetOverwrite ifnewer
 SetOutPath "$INSTDIR"
 File "${INSTALLATION_SOURCE_DIR}\cc3d.bat"
 File "${INSTALLATION_SOURCE_DIR}\compucell3d.bat"
+File "${INSTALLATION_SOURCE_DIR}\conda-shell.bat"
 File "${INSTALLATION_SOURCE_DIR}\runScript.bat"
 File "${INSTALLATION_SOURCE_DIR}\paramScan.bat"
 File "${INSTALLATION_SOURCE_DIR}\twedit++.bat"
@@ -186,22 +182,13 @@ File "${INSTALLATION_SOURCE_DIR}\icons\cc3d_256x256_logo.ico"
 File "${INSTALLATION_SOURCE_DIR}\icons\cc3d_64x64_logo.ico"
 File "${INSTALLATION_SOURCE_DIR}\icons\twedit-icon.ico"
 
-
-
-
-
 ### CUSTOM MODIFICATION
-# MessageBox MB_OK ' THIS IS Python Path  $PYTHON_PATH27python $INSTDIR\scriptSetup.py $INSTDIR'
 DetailPrint "Postinstallation ..."
-;  ExecWait '"$INSTDIR\python37\python" "$INSTDIR\scriptSetup.py" "$INSTDIR" "$INSTDIR\Python37   " '
  #removing unnecessary files
  Delete "$INSTDIR\Prerequisites\Miniconda3-py37_4.10.3-Windows-x86_64.exe"
- ;Delete "$INSTDIR\Prerequisites\vc_redist_2013.x64.exe"
-
+ Delete "$INSTDIR\Demos.zip"
 
 ### END OF CUSTOM MODIFICATION
-
-
 SectionEnd
 
 ######################################################################
@@ -218,6 +205,7 @@ CreateDirectory "$SMPROGRAMS\$SM_Folder"
 CreateShortCut "$SMPROGRAMS\$SM_Folder\${APP_NAME}.lnk" "$INSTDIR\${MAIN_APP_EXE}" "" "$INSTDIR\icons\cc3d_128x128_logo.ico"
 CreateShortCut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${MAIN_APP_EXE}" "" "$INSTDIR\icons\cc3d_128x128_logo.ico"
 CreateShortCut "$SMPROGRAMS\$SM_Folder\Twedit++.lnk" "$INSTDIR\${TWEDIT_EXE}" "" "$INSTDIR\icons\twedit-icon.ico"
+CreateShortCut "$DESKTOP\${TWEDIT_APP_NAME}.lnk" "$INSTDIR\${TWEDIT_EXE}" "" "$INSTDIR\icons\twedit-icon.ico"
 CreateShortCut "$SMPROGRAMS\$SM_Folder\Uninstall ${APP_NAME}.lnk" "$INSTDIR\uninstall-cc3d.exe"
 
 !ifdef WEB_SITE
@@ -249,6 +237,7 @@ ExecWait "$INSTDIR\Prerequisites\cc3d-uninstall.bat"
 
 Delete "$INSTDIR\cc3d.bat"
 Delete "$INSTDIR\compucell3d.bat"
+Delete "$INSTDIR\conda-shell.bat"
 Delete "$INSTDIR\runScript.bat"
 Delete "$INSTDIR\paramScan.bat"
 Delete "$INSTDIR\twedit++.bat"
@@ -286,6 +275,7 @@ Delete "$SMPROGRAMS\$SM_Folder\${APP_NAME} Website.lnk"
 
 !endif
 Delete "$DESKTOP\${APP_NAME}.lnk"
+Delete "$DESKTOP\${TWEDIT_APP_NAME}.lnk"
 
 RmDir "$SMPROGRAMS\$SM_Folder"
 !endif
