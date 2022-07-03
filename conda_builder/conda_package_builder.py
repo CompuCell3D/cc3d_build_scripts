@@ -1,4 +1,5 @@
 """
+on windows it might be helpful to run anaconda shell as administrator
 
 the env on which you build must include cmake, llvm-openmp clang and the best way is to install cc3d e.g. 4.3.2
 from compucell3d channel that will bring all those packages
@@ -59,8 +60,8 @@ def main():
     build_installer = args.build_installer
     skip_conda_build = args.skip_conda_build
 
-    command_build = f"source /home/m/miniconda3/etc/profile.d/conda.sh ; conda activate base ;which cmake"
-    os.system(command_build)
+    # command_build = f"source /home/m/miniconda3/etc/profile.d/conda.sh ; conda activate base ;which cmake"
+    # os.system(command_build)
     # sys.exit(0)
     # command_build = f"source /Users/m/miniconda3/etc/profile.d/conda.sh ; conda activate base ;which cmake"
     # os.system(command_build)

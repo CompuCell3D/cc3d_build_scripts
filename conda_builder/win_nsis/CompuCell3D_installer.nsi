@@ -125,7 +125,7 @@ Section -Uninstaller
     goto notfoundUninstaller
     foundUninstaller:
         ;MessageBox MB_OK "Exsisting copy of CompuCell3D will be uninstalled now.$\nPLEASE make sure to backup existing simulation"
-        MessageBox MB_YESNO "Found existing CompuCell3D installation.$\nWould you like unistall it now (recommended)?$\n Before uninstalling PLEASE backup existing simulations" /SD IDYES IDNO NoUninstall
+        MessageBox MB_YESNO "Found existing CompuCell3D installation.$\nWould you like uninstall it now (recommended)?$\n Before uninstalling PLEASE backup existing simulations" /SD IDYES IDNO NoUninstall
 
         ; ExecWait "$CURRENT_UNINSTALLER"
         ExecWait '"$CURRENT_UNINSTALLER" _?=$INSTDIR'
@@ -147,7 +147,12 @@ Section -Prerequisites
     File "${INSTALLATION_SOURCE_DIR}\Demos.zip"
 
   SetOutPath "$INSTDIR\Prerequisites"
-    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\Miniconda3-py37_4.10.3-Windows-x86_64.exe"    
+    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\Miniconda3-py37_4.10.3-Windows-x86_64.exe"
+    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\libiconv2.dll"
+    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\libintl3.dll"
+    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\tee.exe"
+    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\wc.exe"
+
     ExecWait "$INSTDIR\Prerequisites\Miniconda3-py37_4.10.3-Windows-x86_64.exe /InstallationType=JustMe /RegisterPython=0 /S /D=$INSTDIR\Miniconda3"
     ;using python to decompress demos
     ExecWait "$INSTDIR\Miniconda3\python -m zipfile -e $INSTDIR\Demos.zip $INSTDIR\Demos"
@@ -243,7 +248,10 @@ Delete "$INSTDIR\paramScan.bat"
 Delete "$INSTDIR\twedit++.bat"
 Delete "$INSTDIR\Prerequisites\cc3d-install.bat"
 Delete "$INSTDIR\Prerequisites\cc3d-uninstall.bat"
-
+Delete "$INSTDIR\Prerequisites\wc.exe"
+Delete "$INSTDIR\Prerequisites\tee.exe"
+Delete "$INSTDIR\Prerequisites\libiconv2.dll"
+Delete "$INSTDIR\Prerequisites\libintl3.dll"
 
 Delete "$INSTDIR\icons\cc3d_128x128_logo.ico"
 Delete "$INSTDIR\icons\cc3d_256x256_logo.ico"

@@ -9,6 +9,10 @@ rem %script_dir%\..\Miniconda3\python -m zipfile -e %script_dir%\..\Demos.zip %s
 rem installing actual compucell3d
 
 rem conda install -y -c compucell3d -c conda-forge compucell3d=%version% >  %script_dir%\install.log & type install.log
-conda install -y -c compucell3d -c conda-forge compucell3d=%version%
+pause
+tee --help
+pause
+set PATH= %script_dir%\..\Prerequisites;%PATH%
+conda install -y -c compucell3d -c conda-forge compucell3d=%version% |tee install.log 2>&1
 pause
 
