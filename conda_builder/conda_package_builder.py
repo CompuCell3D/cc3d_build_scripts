@@ -1,5 +1,5 @@
 """
-on windows it might be helpful to run anaconda shell as administrator
+on windows it might be helpful to run anaconda shell as administrator and cd to D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder
 
 the env on which you build must include cmake, llvm-openmp clang and the best way is to install cc3d e.g. 4.3.2
 from compucell3d channel that will bring all those packages
