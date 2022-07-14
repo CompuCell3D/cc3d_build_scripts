@@ -10,10 +10,6 @@ pushd %condabin_dir_rel%
 set condabin_dir=%CD%
 popd
 
-@CALL %condabin_dir%\activate.bat
-
-rem this requires that we bundle tee command (tee.exe) with the installer
-set PATH= %script_dir%\..\Prerequisites;%PATH%
 %condabin_dir%\conda.bat install -y -c compucell3d -c conda-forge compucell3d=%version% |tee install.log 2>&1
 
 
