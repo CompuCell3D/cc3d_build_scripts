@@ -158,7 +158,7 @@ Section -Prerequisites
     ExecWait "$INSTDIR\Miniconda3\python -m zipfile -e $INSTDIR\Demos.zip $INSTDIR\Demos"
 
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\cc3d-install.bat"
-    ExecWait "$INSTDIR\Prerequisites\cc3d-install.bat ${CC3D_VERSION} & pause"
+    ExecWait "$INSTDIR\Prerequisites\cc3d-install.bat ${CC3D_VERSION}"
 
 SectionEnd
 
