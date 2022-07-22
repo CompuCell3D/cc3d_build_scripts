@@ -16,6 +16,7 @@ from compucell3d channel that will bring all those packages
 
 On linux:
 https://stackoverflow.com/questions/13702425/source-command-not-found-in-sh-shell
+# to make sure you detect correct python start pycharm from miniconda3 base env that has all above dependencies
 
 example command line:
 
@@ -60,11 +61,9 @@ def main():
     build_installer = args.build_installer
     skip_conda_build = args.skip_conda_build
 
-    # command_build = f"source /home/m/miniconda3/etc/profile.d/conda.sh ; conda activate base ;which cmake"
-    # os.system(command_build)
-    # sys.exit(0)
-    # command_build = f"source /Users/m/miniconda3/etc/profile.d/conda.sh ; conda activate base ;which cmake"
-    # os.system(command_build)
+    if sys.platform.startswith('darwin'):
+        command_build = f"source /Users/m/miniconda3/etc/profile.d/conda.sh ; conda activate base ;which cmake"
+        os.system(command_build)
 
     # print('building conda package using command: ')
     # print(command_build)
@@ -102,6 +101,7 @@ def main():
 
             if package_name in configured_packages:
                 build_conda_package(conda_build_dir=conda_recipe_dir, version=version, build_number=build_number)
+
 
     if build_installer:
         if sys.platform.startswith('win'):

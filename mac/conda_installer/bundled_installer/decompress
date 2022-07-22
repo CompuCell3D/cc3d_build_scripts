@@ -6,7 +6,7 @@ echo "CompuCell3D: Self Extracting Installer"
 echo ""
 
 COMPUCELL3D_PKG=compucell3d
-INSTALLATION_DIR=$HOME/CC3D
+INSTALLATION_DIR=$HOME/CompuCell3D
 VERSION=''
 DEFAULT_VERSION=''
 
@@ -23,8 +23,8 @@ function print_usage() {
   echo "========"
   echo
   echo "./cc3d-installer-osx.sh  (in this case latest version will be installed in the default install dir \$HOME/CC3D)"
-  echo "./cc3d-installer-osx.sh -i /Users/m/CC3D (in this case the latest version of CC3D will be installed)"
-  echo "./cc3d-installer-osx.sh -i /Users/m/CC3D -v 4.3.2"
+  echo "./cc3d-installer-osx.sh -i /Users/m/CompuCell3D (in this case the latest version of CC3D will be installed)"
+  echo "./cc3d-installer-osx.sh -i /Users/m/CompuCell3D -v 4.3.2"
   echo "./cc3d-installer-osx.sh -h (print_usage)"
 }
 
