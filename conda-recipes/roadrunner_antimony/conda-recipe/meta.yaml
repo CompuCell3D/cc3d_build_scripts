@@ -1,6 +1,6 @@
 # when building as standalone package uncomment line below and set version and build_number to proper values
-{% set version = "0.0.1" %}
-{% set build_number = "1" %}
+{% set version = "0.0.2" %}
+{% set build_number = "0" %}
 {% set python_version = "3.7" %}
 
 package:
@@ -15,7 +15,6 @@ extra:
   maintainers: T.J. Sego, Maciek Swat, Herbert Sauro
 
 source:
-  # url: https://github.com/CompuCell3D/cc3d-player5/archive/master.tar.gz
   path: ../
 
 build:
