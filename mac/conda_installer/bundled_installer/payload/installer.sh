@@ -1,7 +1,7 @@
 #
 
 COMPUCELL3D_PKG=compucell3d
-INSTALLATION_DIR=$HOME/CC3D
+INSTALLATION_DIR=$HOME/CompuCell3D
 VERSION=''
 
 function print_usage {
@@ -16,8 +16,8 @@ function print_usage {
   echo "========"
   echo
   echo "./installer.sh  (in this case latest version will be installed in the default install dir \$HOME/CC3D)"
-  echo "./installer.sh -i /Users/m/CC3D (in this case the latest version of CC3D will be installed)"
-  echo "./installer.sh -i /Users/m/CC3D -v 4.3.2"
+  echo "./installer.sh -i /Users/m/CompuCell3D (in this case the latest version of CC3D will be installed)"
+  echo "./installer.sh -i /Users/m/CompuCell3D -v 4.3.2"
   echo "./installer.sh -h (print_usage)"
 }
 
