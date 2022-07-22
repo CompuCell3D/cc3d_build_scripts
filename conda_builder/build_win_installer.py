@@ -13,6 +13,7 @@ import argparse
 from pathlib import Path
 import shutil
 import os
+import json
 
 
 def main():
@@ -23,10 +24,20 @@ def main():
     source_dir = Path(args.source_dir)
     target_dir = Path(args.target_dir)
     #
-    target_dir = target_dir.joinpath(f'{version}')
+    target_dir = target_dir.joinpath(f'{version}.{build_number}')
 
     nsis_exe = Path(args.nsis_exe)
     certificate = Path(args.certificate)
+
+    json_dict = parse_input_json(json_path=args.json_config)
+    demos_dir = Path(json_dict['demos'])
+    prerequisites_dir = Path(json_dict['prerequisites_dir'])
+    # bundled_installer_dir = Path(args.bundled_installer_dir)
+    full_prereq_dir = prerequisites_dir.joinpath(f'{version}.{build_number}')
+
+    prepare_prerequisites(source_dir=source_dir, full_prereq_dir=full_prereq_dir)
+
+    compress_demos_folder(demos_dir=demos_dir, full_prereq_dir=full_prereq_dir)
 
     installer_path = get_installer_path(target_dir=target_dir, version=version, build_number=build_number)
 
@@ -34,6 +45,8 @@ def main():
     prep_nsis_template(target_dir=target_dir, version=version, build_number=build_number)
     run_nsis(nsis_exe=nsis_exe, target_dir=target_dir)
     sign(certificate=certificate, installer_path=installer_path, version=version, build_number=build_number)
+
+
 
 
 def parse_cml():
@@ -49,6 +62,27 @@ def parse_cml():
 
     args = parser.parse_args()
     return args
+
+
+def prepare_prerequisites(source_dir:Path, full_prereq_dir:Path):
+    source_pre_req_folder = source_dir.joinpath('win_prerequisites')
+    if full_prereq_dir.exists():
+        shutil.rmtree(full_prereq_dir)
+    shutil.copytree(source_pre_req_folder, full_prereq_dir)
+
+
+def parse_input_json(json_path)->dict:
+
+    with open(json_path, 'r') as json_in:
+        json_dict = json.load(json_in)
+        return json_dict
+
+
+def compress_demos_folder(demos_dir: Path, full_prereq_dir: Path):
+    demos_target_path = full_prereq_dir.joinpath('Demos')
+    shutil.make_archive(demos_target_path, 'zip', demos_dir)
+    # cmd = f'zip -r {str(demos_target_path)} {str(demos_dir)}'
+    # os.system(cmd)
 
 
 def get_installer_path(target_dir: Path, version: str, build_number: str) -> Path:

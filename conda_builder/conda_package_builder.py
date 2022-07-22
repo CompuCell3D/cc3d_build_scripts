@@ -1,4 +1,5 @@
 """
+on windows it might be helpful to run anaconda shell as administrator and cd to D:\CC3D_BUILD_SCRIPTS_GIT\conda_builder
 
 the env on which you build must include cmake, llvm-openmp clang and the best way is to install cc3d e.g. 4.3.2
 from compucell3d channel that will bring all those packages
@@ -11,6 +12,10 @@ from compucell3d channel that will bring all those packages
 # if you have trouble after installation clear cache and remove cmake build directory - start fresh
 # however you need to work from base environment. so make sure that for now llvm-openmp is at version 12.0 not 13.x
 
+# to make sure you detect correct python start pycharm from miniconda3 base env that has all above dependencies
+
+On linux:
+https://stackoverflow.com/questions/13702425/source-command-not-found-in-sh-shell
 # to make sure you detect correct python start pycharm from miniconda3 base env that has all above dependencies
 
 example command line:
@@ -100,7 +105,7 @@ def main():
 
     if build_installer:
         if sys.platform.startswith('win'):
-            build_installer_win(json_dict=json_dict, version=version, build_number=build_number)
+            build_installer_win(json_dict=json_dict, version=version, build_number=build_number, json_path=json_path)
         elif sys.platform.startswith('darwin'):
             build_installer_mac(json_config_path=json_path, version=version, build_number=build_number)
         elif sys.platform.startswith('linux'):
@@ -206,18 +211,30 @@ def fix_cc3d_version(version: str, build_number: str, git_hash: str, cc3d_git_pa
     os.remove(init_tmp_path)
 
 
+def get_git():
+    if sys.platform.startswith('win'):
+        # return '"C:/Program Files/Git/bin/git.exe"'
+        # install git as a part of the conda env from which you run this script
+        return 'git'
+    else:
+        return 'git'
+
+
 def get_git_describe_label(git_dir: Path) -> str:
-    val = subprocess.check_output(["git", "describe", "--always"], cwd=git_dir).strip().decode()
+    git = get_git()
+    val = subprocess.check_output([git, "describe", "--always"], cwd=git_dir).strip().decode()
     return val
 
 
 def get_git_revision_hash(git_dir: Path) -> str:
-    val = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=git_dir).strip().decode()
+    git = get_git()
+    val = subprocess.check_output([f'{git}', 'rev-parse', 'HEAD'], cwd=git_dir).strip().decode()
     return val
 
 
 def get_git_short_revision_hash(git_dir: Path) -> str:
-    val = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD'], cwd=git_dir).strip().decode()
+    git = get_git()
+    val = subprocess.check_output([git, 'rev-parse', '--short', 'HEAD'], cwd=git_dir).strip().decode()
     return val
 
 
@@ -247,8 +264,13 @@ def build_conda_package(conda_build_dir, version, build_number):
 
         if sys.platform.startswith('darwin'):
             cmd_activate_sh = f'source /Users/m/miniconda3/etc/profile.d/conda.sh {command_join_char} conda activate base'
+        elif sys.platform.startswith('win'):
+            cmd_activate_sh = f'conda activate base '
+        elif sys.platform.startswith('lin'):
+            cmd_activate_sh = f'source /home/m/miniconda3/etc/profile.d/conda.sh ; conda activate base '
         else:
-            cmd_activate_sh = f'{command_join_char} conda activate base '
+            raise RuntimeError(f'Unsupported Platform {sys.platform}')
+            cmd_activate_sh = f'conda activate base '
 
         command_build = f"cd {str(conda_build_workdir)} {command_join_char} {cmd_activate_sh} " \
                         f"{command_join_char} conda build . -c conda-forge -c compucell3d"
@@ -266,7 +288,7 @@ def concatenate_files(filenames, out_fname):
                 outfile.write(infile.read())
 
 
-def build_installer_win(json_dict: dict, version: str, build_number: str):
+def build_installer_win(json_dict: dict, version: str, build_number: str, json_path: Path):
     current_script_dir = Path(__file__).parent
     source_dir = current_script_dir
     installer_builder_script = current_script_dir.joinpath('build_win_installer.py')
@@ -279,6 +301,7 @@ def build_installer_win(json_dict: dict, version: str, build_number: str):
 
     cmd = f'{python_exe} {installer_builder_script} --version {version} --build-number {build_number} ' \
           f'--source-dir {source_dir} --target-dir {installer_target_dir} --nsis-exe "{nsis_exe}" ' \
+          f'--json-config "{json_path}" ' \
           f'--certificate {certificate}'
 
     print('Installer building command:')
