@@ -47,8 +47,9 @@ echo "Installing ${COMPUCELL3D_PKG}"
 # get current script dir
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
+mkdir -p ${INSTALLATION_DIR}
 echo "INSTALLING Miniconda 3"
-${SCRIPT_DIR}/Miniconda3-py37_4.10.3-MacOSX-x86_64.sh -s -b -p ${INSTALLATION_DIR}/miniconda3
+${SCRIPT_DIR}/Miniconda3-py37_4.10.3-MacOSX-x86_64.sh -s -b -p ${INSTALLATION_DIR}/miniconda3 | tee ${INSTALLATION_DIR}/install.log 2>&1
 
 source ${INSTALLATION_DIR}/miniconda3/bin/activate base
 
@@ -62,11 +63,11 @@ cp ${SCRIPT_DIR}/run_scripts/* ${INSTALLATION_DIR}
 which python
 
 echo "Installing CompuCell3D conda package"
-conda install -y -c compucell3d -c conda-forge ${COMPUCELL3D_PKG}
+conda install -y -c compucell3d -c conda-forge ${COMPUCELL3D_PKG} | tee -a ${INSTALLATION_DIR}/install.log 2>&1
 
 # copying demos
 echo "Installing Demos"
 cp ${SCRIPT_DIR}/Demos.zip ${INSTALLATION_DIR}
 
-unzip ${INSTALLATION_DIR}/Demos.zip -d ${INSTALLATION_DIR}
+unzip ${INSTALLATION_DIR}/Demos.zip -d ${INSTALLATION_DIR} | tee -a ${INSTALLATION_DIR}/install.log 2>&1
 rm ${INSTALLATION_DIR}/Demos.zip
