@@ -10,7 +10,9 @@ pushd %condabin_dir_rel%
 set condabin_dir=%CD%
 popd
 
-%condabin_dir%\conda.bat install -y -c compucell3d -c conda-forge compucell3d=%version% |tee install.log 2>&1
+rem %condabin_dir%\conda.bat install -y  -c conda-forge mamba |tee install.log 2>&1
+
+rem %condabin_dir%\mamba.bat install -y -c compucell3d -c conda-forge compucell3d=%version% |tee -a install.log 2>&1
 
 
 
