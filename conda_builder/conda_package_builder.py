@@ -273,7 +273,7 @@ def build_conda_package(conda_build_dir, version, build_number):
             cmd_activate_sh = f'conda activate base '
 
         command_build = f"cd {str(conda_build_workdir)} {command_join_char} {cmd_activate_sh} " \
-                        f"{command_join_char} conda build . -c conda-forge -c compucell3d"
+                        f"{command_join_char} conda build -c conda-forge -c compucell3d ."
 
         print('building conda package using command: ')
         print(command_build)
