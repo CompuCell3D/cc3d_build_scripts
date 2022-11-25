@@ -39,6 +39,10 @@ allowed packages cc3d cc3d_player5, cc3d_twedit5 compucell3d. Build order matter
 conda_package_builder.py --version 4.3.2 --build-number 2
 --json-config /home/m/cc3d_build_scripts/conda_builder/cc3d_conda_input_data_linux.json
 
+# linux mambabuild - solves problems with very slow package resolution
+conda mambabuild -c compucell3d -c conda-forge --numpy 1.18 --python 3.7 --debug .
+
+
 
 """
 import json
@@ -273,7 +277,7 @@ def build_conda_package(conda_build_dir, version, build_number):
             cmd_activate_sh = f'conda activate base '
 
         command_build = f"cd {str(conda_build_workdir)} {command_join_char} {cmd_activate_sh} " \
-                        f"{command_join_char} conda build . -c conda-forge -c compucell3d"
+                        f"{command_join_char} conda build -c conda-forge -c compucell3d ."
 
         print('building conda package using command: ')
         print(command_build)
