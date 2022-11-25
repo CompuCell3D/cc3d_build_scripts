@@ -316,7 +316,8 @@ def build_installer_mac(json_config_path: Path, version: str, build_number: str)
 
     current_script_dir = Path(__file__).parent
     installer_builder_script = current_script_dir.joinpath('build_mac_installer.py')
-    bundled_installer_dir = current_script_dir.joinpath('mac_bundled_installer')
+    bundled_installer_dir = current_script_dir.joinpath('mac_bundled_installer').resolve()
+
     python_exe = sys.executable
 
     cmd = f'{python_exe} {installer_builder_script} --version {version} --build-number {build_number} ' \
