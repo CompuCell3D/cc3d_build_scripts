@@ -1,7 +1,8 @@
 # when building as standalone package uncomment line below and set version and build_number to proper values
-{% set version = "0.0.2" %}
+{% set version = "0.3.0" %}
+{% set maboss_version = "0.3.0" %}
 {% set build_number = "0" %}
-{% set python_version = "3.7" %}
+{% set python_version = "3.10" %}
 
 package:
   name: cc3d-network-solvers
@@ -28,7 +29,7 @@ requirements:
 
   run:
     - python={{ python_version }}
-    - cc3dext_maboss
+    - cc3dext_maboss={{ maboss_version }}
 
 test:
   imports:

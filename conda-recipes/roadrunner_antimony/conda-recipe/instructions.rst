@@ -1,3 +1,13 @@
+Before building yu need to install conda env , call it rr (see .bat or.sh scripts)
+install numpy that cc3d is using (e.g. numpy=1.21 or 1.24 for python >=3.8) for compilation, pip install roadrunner
+and antimony
+
+pip install libroadrunner
+pip install antimony
+
+and then run install
+
+
 To build a conda package to the following:
 
 .. code-block:: console
