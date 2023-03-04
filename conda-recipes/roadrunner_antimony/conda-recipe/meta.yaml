@@ -34,3 +34,5 @@ requirements:
 test:
   imports:
     - sys
+    - roadrunner
+    - antimony
