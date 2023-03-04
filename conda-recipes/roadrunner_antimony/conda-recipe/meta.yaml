@@ -27,10 +27,12 @@ requirements:
   build:
     - python={{ python_version }}
     - setuptools
+    - numpy={{ numpy_version }}
 
   run:
     - python={{ python_version }}
     - cc3dext_maboss={{ maboss_version }}
+    - numpy={{ numpy_version }}
 
   test:
     - numpy={{ numpy_version }}
