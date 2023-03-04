@@ -9,8 +9,10 @@
 # OSX - uncomment below
 #declare -a StringArray=("/Users/m/miniconda3/envs/rr/lib/python3.7/site-packages/antimony" "/Users/m/miniconda3/envs/rr/lib/python3.7/site-packages/roadrunner")
 
+export python_version=python3.7
+
 #linux
-declare -a StringArray=("/home/m/miniconda3/envs/rr/lib/python3.7/site-packages/antimony" "/home/m/miniconda3/envs/rr/lib/python3.7/site-packages/roadrunner")
+declare -a StringArray=("/home/m/miniconda3/envs/rr_${python_version}/lib/${python_version}/site-packages/antimony" "/home/m/miniconda3/envs/rr_${python_version}/lib/${python_version}/site-packages/roadrunner")
 
 
 # Read the array values with space
