@@ -20,9 +20,18 @@ for val in "${StringArray[@]}"; do
   cp -r $val ${SP_DIR}
 done
 
+# echo "THIS IS BEFORE LINKS"
+# echo "ls ${PREFIX}/lib/libncurses.so.6"
+# ls -la ${PREFIX}/lib/libncurses.so.6
+# ls -la ${PREFIX}/lib/libncurses.so
+# echo "RR site dir"
+# ls -la ${SP_DIR}/roadrunner
+
+# on linux it is best to copy whatever libncurses, libtinfo and libtform are
+# and renamee them as .so.5 links are too finicky
 # setting up links for linux distros - commend for mac
-ls -s /home/m/miniconda3/envs/rr_${python_version}/lib/libncurses.so /home/m/miniconda3/envs/rr_${python_version}/lib/${python_version}/site-packages/roadrunner/libncurses.so.5
-ls -s /home/m/miniconda3/envs/rr_${python_version}/lib/libtinfo.so /home/m/miniconda3/envs/rr_${python_version}/lib/${python_version}/site-packages/roadrunner/libtinfo.so.5
-ls -s /home/m/miniconda3/envs/rr_${python_version}/lib/libform.so /home/m/miniconda3/envs/rr_${python_version}/lib/${python_version}/site-packages/roadrunner/libform.so.5
+# ln -s ../../../libncurses.so ${SP_DIR}/roadrunner/libncurses.so.5
+# ln -s ../../../libtinfo.so ${SP_DIR}/roadrunner/libtinfo.so.5
+# ln -s ../../../libform.so ${SP_DIR}/roadrunner/libform.so.5
 #cp -R /Users/m/tbb/* "${PREFIX}"
 ##$PYTHON setup.py install --single-version-externally-managed --record=record.txt
