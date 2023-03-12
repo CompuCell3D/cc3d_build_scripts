@@ -5,7 +5,7 @@ build_linux_installer.py
 --json-config /home/m/cc3d_build_scripts/conda_builder/cc3d_conda_input_data_linux.json
 --version 4.3.2 --build-number 2
 --bundled-installer-dir /home/m/cc3d_build_scripts/conda_builder/linux_installer/bundled_installer
---target-dir /home/m/ibinaries
+--target-dir /home/m/binaries
 
 """
 
@@ -30,6 +30,7 @@ def main():
     bundled_installer_dir = Path(args.bundled_installer_dir)
     target_dir = Path(args.target_dir)
 
+    # print(demos_dir)
     compress_demos_folder(demos_dir=demos_dir, bundled_installer_dir=bundled_installer_dir)
 
     build_installer(bundled_installer_dir=bundled_installer_dir, target_dir=target_dir, version=version,
@@ -61,11 +62,16 @@ def compress_demos_folder(demos_dir: Path, bundled_installer_dir: Path):
     demos_target_path = bundled_installer_dir.joinpath('payload', 'Demos.zip')
     # cmd = f'zip -r {str(demos_target_path)} {str(demos_dir)}'
 
+    # print(demos_target_path)
     with cd(demos_dir.parent):
-        demos_target_path.unlink()
-        print('demos_dir.parent=', demos_dir.parent)
-        print('demos_target_path=', demos_target_path)
+        try:
+            demos_target_path.unlink()
+        except FileNotFoundError:
+            pass
+        # print('demos_dir.parent=', demos_dir.parent)
+        # print('demos_target_path=', demos_target_path)
         cmd = f'zip -r {str(demos_target_path)} Demos'
+        # print(os.getcwd())
         print(cmd)
         os. system(cmd)
 

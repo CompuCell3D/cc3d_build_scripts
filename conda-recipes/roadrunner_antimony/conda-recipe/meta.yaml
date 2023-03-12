@@ -2,7 +2,8 @@
 {% set version = "0.3.0" %}
 {% set maboss_version = "0.3.0" %}
 {% set build_number = "0" %}
-{% set python_version = "3.10" %}
+{% set python_version = "3.7" %}
+{% set numpy_version = "1.21" %} # 1.21 for 3.7 1.24 for other pythn versions  
 
 package:
   name: cc3d-network-solvers
@@ -26,11 +27,18 @@ requirements:
   build:
     - python={{ python_version }}
     - setuptools
+    - numpy={{ numpy_version }}
 
   run:
     - python={{ python_version }}
     - cc3dext_maboss={{ maboss_version }}
+    - numpy={{ numpy_version }}
+
+  test:
+    - numpy={{ numpy_version }}
 
 test:
   imports:
     - sys
+    - roadrunner
+    - antimony
