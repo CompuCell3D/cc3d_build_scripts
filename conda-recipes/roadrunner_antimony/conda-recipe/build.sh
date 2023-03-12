@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export py_version="3.10"
+
 # we are using env vars defined here:
 
 # https://docs.conda.io/projects/conda-build/en/latest/user-guide/environment-variables.html
@@ -7,10 +9,10 @@
 
 # Declare a string array with type
 # OSX - uncomment below
-#declare -a StringArray=("/Users/m/miniconda3/envs/rr/lib/python3.7/site-packages/antimony" "/Users/m/miniconda3/envs/rr/lib/python3.7/site-packages/roadrunner")
+declare -a StringArray=("/Users/m/miniconda3/envs/rr_python${py_version}/lib/python${py_version}/site-packages/antimony" "/Users/m/miniconda3/envs/rr_python${py_version}/lib/python${py_version}/site-packages/roadrunner")
 
 #linux
-declare -a StringArray=("/home/m/miniconda3/envs/rr/lib/python3.7/site-packages/antimony" "/home/m/miniconda3/envs/rr/lib/python3.7/site-packages/roadrunner")
+#declare -a StringArray=("/home/m/miniconda3/envs/rr_python${py_version}/lib/python${py_version}/site-packages/antimony" "/home/m/miniconda3/envs/rr_python${py_version}/lib/python${py_version}/site-packages/roadrunner")
 
 
 # Read the array values with space
