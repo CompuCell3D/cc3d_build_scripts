@@ -1,12 +1,11 @@
 {
     "conda_dirs":[
-        {"cc3d":"/home/m/CC3D_PY3_GIT/conda-recipes"},
-        {"cc3d_player5": "/home/m/cc3d-player5/conda-recipes"},
-        {"cc3d_twedit5": "/home/m/cc3d-twedit5/conda-recipes"},
-        {"compucell3d": "/home/m/CC3D_PY3_GIT/conda-recipes-compucell3d"}
-    ],
+        {"cc3d":"/home/m/src/conda-build-repos/CompuCell3D/conda-recipes"},
+        {"cc3d_player5": "/home/m/src/conda-build-repos/cc3d-player5/conda-recipes"},
+        {"cc3d_twedit5": "/home/m/src/conda-build-repos/cc3d-twedit5/conda-recipes"},
+        {"compucell3d": "/home/m/src/conda-build-repos/CompuCell3D/conda-recipes"}    ],
     "nsis_exe": "",
     "certificate" : "",
     "installer_target_dir": "/home/m/binaries",
-    "demos": "/home/m/CC3D_PY3_GIT/CompuCell3D/core/Demos"
+    "demos": "/home/m/src/conda-build-repos/CompuCell3D/CompuCell3D/core/Demos"
 }
