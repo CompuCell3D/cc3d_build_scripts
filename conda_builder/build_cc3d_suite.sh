@@ -1,7 +1,12 @@
+repo_prefix=/home/m/src/conda-build-repos
+if [ "$(uname)" == "Darwin" ]; then
+  repo_prefix=/Users/m/src/conda-build-repos
+fi
 
-cc3d_repo_dir=/home/m/src/conda-build-repos/CompuCell3D/
-player_repo_dir=/home/m/src/conda-build-repos/cc3d-player5/
-twedit_repo_dir=/home/m/src/conda-build-repos/cc3d-twedit5/
+
+cc3d_repo_dir=${repo_prefix}/CompuCell3D/
+player_repo_dir=${repo_prefix}/cc3d-player5/
+twedit_repo_dir=${repo_prefix}/cc3d-twedit5/
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # SCRIPT_DIR=$(dirname "$0")
 
