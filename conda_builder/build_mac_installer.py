@@ -14,6 +14,9 @@ build_mac_installer.py
 --bundled-installer-dir /Users/m/CC3D_BUILD_SCRIPTS_GIT/conda_builder/mac_bundled_installer
 --target-dir /Users/m/installer_target1
 
+ NEW  -= use this
+python build_mac_installer.py
+--json-config   /Users/m/src/cc3d_build_scripts/conda_builder/cc3d_conda_input_data_mac_do_not_commit.json --version 4.4.0 --build-number 0 --bundled-installer-dir /Users/m/src/cc3d_build_scripts/conda_builder/mac_installer/bundled_installer --target-dir /Users/m/binaries
 """
 
 

@@ -5,6 +5,9 @@ and antimony
 pip install libroadrunner
 pip install antimony
 
+
+change python version in meta.yaml and in build.sh/build.bat
+
 and then run install
 
 
@@ -18,7 +21,7 @@ From base conda environment run:
 
 .. code-block:: console
 
-    conda-build  . -c conda-forge -c compucell3d python=3.7
+    conda-build  . -c conda-forge -c compucell3d --python 3.7
 
 Your package will be built in ``<conda_installation_dir>/conda-bld/noarch``
 
