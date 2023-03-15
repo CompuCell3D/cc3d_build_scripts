@@ -2,14 +2,9 @@
 example command line:
 
 build_linux_installer.py
---json-config /home/m/cc3d_build_scripts/conda_builder/cc3d_conda_input_data_linux.json
---version 4.3.2 --build-number 2
---bundled-installer-dir /home/m/cc3d_build_scripts/conda_builder/linux_installer/bundled_installer
---target-dir /home/m/binaries
+--json-config /home/m/src/cc3d_build_scripts/conda_builder/cc3d_conda_input_data_linux.json --version 4.4.0 --build-number 0 --bundled-installer-dir /home/m/src/cc3d_build_scripts/conda_builder/linux_installer/bundled_installer --target-dir /home/m/binaries
 
 """
-
-
 
 import argparse
 from pathlib import Path
