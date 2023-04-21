@@ -129,7 +129,7 @@ Section -Uninstaller
 
         ; ExecWait "$CURRENT_UNINSTALLER"
         ExecWait '"$CURRENT_UNINSTALLER" _?=$INSTDIR'
-        MessageBox MB_OK " Uninstall Succesful "
+        MessageBox MB_OK " Uninstall Successful "
         goto uninstallSectionComplete
         NoUninstall:
             MessageBox MB_OK " No uninstallation performed "
@@ -147,13 +147,13 @@ Section -Prerequisites
     File "${INSTALLATION_SOURCE_DIR}\Demos.zip"
 
   SetOutPath "$INSTDIR\Prerequisites"
-    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\Miniconda3-py37_4.10.3-Windows-x86_64.exe"
+    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\Miniconda3-latest-Windows-x86_64.exe"
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\libiconv2.dll"
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\libintl3.dll"
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\tee.exe"
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\wc.exe"
 
-    ExecWait "$INSTDIR\Prerequisites\Miniconda3-py37_4.10.3-Windows-x86_64.exe /InstallationType=JustMe /RegisterPython=0 /S /D=$INSTDIR\Miniconda3"
+    ExecWait "$INSTDIR\Prerequisites\Miniconda3-latest-Windows-x86_64.exe /InstallationType=JustMe /RegisterPython=0 /S /D=$INSTDIR\Miniconda3"
     ;using python to decompress demos
     ExecWait "$INSTDIR\Miniconda3\python -m zipfile -e $INSTDIR\Demos.zip $INSTDIR\Demos"
 
@@ -178,7 +178,7 @@ File "${INSTALLATION_SOURCE_DIR}\runScript.bat"
 File "${INSTALLATION_SOURCE_DIR}\paramScan.bat"
 File "${INSTALLATION_SOURCE_DIR}\twedit++.bat"
 SetOutPath "$INSTDIR\Prerequisites"
-File "${INSTALLATION_SOURCE_DIR}\Prerequisites\Miniconda3-py37_4.10.3-Windows-x86_64.exe"
+File "${INSTALLATION_SOURCE_DIR}\Prerequisites\Miniconda3-latest-Windows-x86_64.exe"
 File "${INSTALLATION_SOURCE_DIR}\Prerequisites\cc3d-install.bat"
 File "${INSTALLATION_SOURCE_DIR}\Prerequisites\cc3d-uninstall.bat"
 SetOutPath "$INSTDIR\icons"
@@ -190,7 +190,7 @@ File "${INSTALLATION_SOURCE_DIR}\icons\twedit-icon.ico"
 ### CUSTOM MODIFICATION
 DetailPrint "Postinstallation ..."
  #removing unnecessary files
- Delete "$INSTDIR\Prerequisites\Miniconda3-py37_4.10.3-Windows-x86_64.exe"
+ Delete "$INSTDIR\Prerequisites\Miniconda3-latest-Windows-x86_64.exe"
  Delete "$INSTDIR\Demos.zip"
 
 ### END OF CUSTOM MODIFICATION

@@ -4,7 +4,8 @@ echo %script_dir%
 @set CURRENT_DIRECTORY=%CD%
 
 REM activate miniconda
-@CALL "%script_dir%\Miniconda3\condabin\activate.bat" "%script_dir%\Miniconda3"
+SET condabin=%script_dir%Miniconda3\condabin
+@CALL "%condabin%\activate.bat" activate "%script_dir%\Miniconda3"
 
 
 

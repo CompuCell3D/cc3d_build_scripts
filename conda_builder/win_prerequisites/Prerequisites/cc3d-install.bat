@@ -11,6 +11,12 @@ pushd %condabin_dir_rel%
 set condabin_dir=%CD%
 popd
 
-call %condabin_dir%\conda.bat install -y -c conda-forge mamba
-Call %condabin_dir%\mamba.bat install -y -c compucell3d -c conda-forge compucell3d=%version%|%script_dir%\tee %script_dir%\install.log 2>&1
+set conda_bat=%condabin_dir%\conda.bat
+set mamba_bat=%condabin_dir%\mamba.bat
+call %conda_bat% activate base
 
+call %conda_bat% install -y -c conda-forge mamba
+call %conda_bat% create -y -n cc3d python=3.7
+call %conda_bat% activate cc3d
+call %mamba_bat% install -y -c compucell3d -c conda-forge compucell3d=%version%|%script_dir%\tee %script_dir%\install.log 2>&1
+call %conda_bat% deactivate cc3d
