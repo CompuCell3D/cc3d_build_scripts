@@ -176,7 +176,7 @@ We do exactly the same for twedit5:
 cp -R /home/m//src/conda-build-repos/cc3d-twedit5/cc3d/twedit5/  /home/m/miniconda3/envs/cc3d_linux_manual_37/lib/python3.7/site-packages/cc3d/
 ```
 
-Finally you will need to edit `compucell3d.sh` and `twedit++.sh` scripts to provide paths appropriate for your setup - see examples in [runScripts](./runScripts)
+Finally you will need to edit `compucell3d.sh` and `twedit++.sh` scripts to provide paths appropriate for your setup - see examples in [Run Scripts](./run_scripts)
 
 
 
