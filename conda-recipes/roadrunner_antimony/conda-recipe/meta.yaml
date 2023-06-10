@@ -2,8 +2,8 @@
 {% set version = "0.3.0" %}
 {% set maboss_version = "0.3.0" %}
 {% set build_number = "0" %}
-{% set python_version = "3.7" %}
-{% set numpy_version = "1.21" %} # 1.21 for 3.7 1.24 for other pythn versions  
+{% set python_version = "3.11" %}
+{% set numpy_version = "1.24" %} # 1.21 for 3.7 1.24 for other pythn versions
 
 package:
   name: cc3d-network-solvers
