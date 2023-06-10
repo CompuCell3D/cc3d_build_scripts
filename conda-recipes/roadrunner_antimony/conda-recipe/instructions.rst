@@ -6,6 +6,8 @@ pip install libroadrunner
 pip install antimony
 
 
+on linux you may need to copy libncurses.so.5 libform.so.5 libtinfo.so.5 to site-packages/roadrunner
+
 change python version in meta.yaml and in build.sh/build.bat
 
 and then run install

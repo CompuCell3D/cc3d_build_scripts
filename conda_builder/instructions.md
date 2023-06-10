@@ -1,0 +1,1 @@
+for python 3.8 and higher change numpy version to 1.24 in versions.yaml
