@@ -1,0 +1,74 @@
+python 3.7
+
+-G "Unix Makefiles"
+-DCMAKE_INSTALL_PREFIX:PATH=/Users/m/src-install/CompuCell3D_1
+-DCMAKE_OSX_SYSROOT:PATH=/opt/MacOSX10.10.sdk
+-DPython3_EXECUTABLE:PATH=/Users/m/miniconda3/envs/cc3d_log_clion_9.2_3.7/bin/python3.7
+-DVTK_DIR:PATH=/Users/m/miniconda3/envs/cc3d_log_clion_9.2_3.7/lib/cmake/vtk-9.2
+-DSWIG_EXECUTABLE:FILEPATH=/Users/m/miniconda3/envs/cc3d_log_clion_9.2_3.7/bin/swig
+-DSWIG_DIR:PATH=/Users/m/miniconda3/envs/cc3d_log_clion_9.2_3.7/share/swig/4.1.1
+-DSWIG_VERSION:STRING=4.1.1
+
+python 3.9 - note I had to set OpenMP settings for cxx manually here - not sure why clion does not pick it up automatically
+
+also had to manually add -I/Users/m/miniconda3/envs/cc3d_440_39/lib/clang/16.0.2/include to find omp.h. not sure
+why it works with python 3.7 but i have to do this manual step with python 3.9
+
+-G "Unix Makefiles"
+-DCMAKE_INSTALL_PREFIX:PATH=/Users/m/src-install/CompuCell3D_1_3.9
+-DCMAKE_OSX_SYSROOT:PATH=/opt/MacOSX10.10.sdk
+-DPython3_EXECUTABLE:PATH=/Users/m/miniconda3/envs/cc3d_440_39/bin/python3.9
+-DVTK_DIR:PATH=/Users/m/miniconda3/envs/cc3d_440_39/lib/cmake/vtk-9.2
+-DSWIG_EXECUTABLE:FILEPATH=/Users/m/miniconda3/envs//cc3d_440_39/bin/swig
+-DSWIG_DIR:PATH=/Users/m/miniconda3/envs//cc3d_440_39/share/swig/4.1.1
+-DSWIG_VERSION:STRING=4.1.1
+-DOpenMP_CXX_FLAGS:STRING="-fopenmp=libomp -I/Users/m/miniconda3/envs/cc3d_440_39/lib/clang/16.0.2/include"
+-DOpenMP_CXX_LIB_NAMES:STRING=omp
+-DOpenMP_omp_LIBRARY:PATH=/Users/m/miniconda3/envs/cc3d_440_39/lib/libomp.dylib
+
+
+
+arm64 clang 16 python 3.11
+
+-G "Unix Makefiles"
+-DCMAKE_OSX_SYSROOT:PATH=/opt/MacOSX11.3.sdk
+-DCMAKE_INSTALL_PREFIX:PATH=/Users/m/src-install/CompuCell3D_arm64_311
+-DPython3_EXECUTABLE:PATH=/Users/m/miniconda3_arm64/envs/cc3d_450_311/bin/python
+-DVTK_DIR:PATH=/Users/m/miniconda3_arm64/envs/cc3d_450_311/lib/cmake/vtk-9.2
+-DSWIG_EXECUTABLE:FILEPATH=/Users/m/miniconda3_arm64/envs/cc3d_450_311/bin/swig
+-DSWIG_DIR:PATH=/Users/m/miniconda3_arm64/envs/cc3d_450_311/share/swig/4.1.1
+-DSWIG_VERSION:STRING=4.1.1
+-DOpenMP_C_FLAGS:STRING="-fopenmp=libomp -I/Users/m/miniconda3_arm64/envs/cc3d_450_311/lib/clang/16.0.3/include"
+-DOpenMP_C_LIB_NAMES:STRING=omp
+-DOpenMP_CXX_FLAGS:STRING="-fopenmp=libomp -I/Users/m/miniconda3_arm64/envs/cc3d_450_311/lib/clang/16.0.3/include"
+-DOpenMP_CXX_LIB_NAMES:STRING=omp
+-DOpenMP_omp_LIBRARY:PATH=/Users/m/miniconda3_arm64/envs/cc3d_450_311/lib/libomp.dylib
+
+arm64 clang 14 python 3.11
+-G "Unix Makefiles"
+-DCMAKE_OSX_SYSROOT:PATH=/opt/MacOSX11.3.sdk
+-DCMAKE_INSTALL_PREFIX:PATH=/Users/m/src-install/CompuCell3D_arm64_311_clang14
+-DPython3_EXECUTABLE:PATH=/Users/m/miniconda3_arm64/envs/cc3d_450_311_clang14/bin/python
+-DVTK_DIR:PATH=/Users/m/miniconda3_arm64/envs/cc3d_450_311_clang14/lib/cmake/vtk-9.2
+-DSWIG_EXECUTABLE:FILEPATH=/Users/m/miniconda3_arm64/envs/cc3d_450_311_clang14/bin/swig
+-DSWIG_DIR:PATH=/Users/m/miniconda3_arm64/envs/cc3d_450_311_clang14/share/swig/4.1.1
+-DSWIG_VERSION:STRING=4.1.1
+-DOpenMP_C_FLAGS:STRING="-fopenmp=libomp -I/Users/m/miniconda3_arm64/envs/cc3d_450_311_clang14/lib/clang/14.0.6/include"
+-DOpenMP_C_LIB_NAMES:STRING=omp
+-DOpenMP_CXX_FLAGS:STRING="-fopenmp=libomp -I/Users/m/miniconda3_arm64/envs/cc3d_450_311_clang14/lib/clang/14.0.6/include"
+-DOpenMP_CXX_LIB_NAMES:STRING=omp
+-DOpenMP_omp_LIBRARY:PATH=/Users/m/miniconda3_arm64/envs/cc3d_450_311_clang14/lib/libomp.dylib
+
+
+x86 python 3.9
+-G "Unix Makefiles"
+-DCMAKE_INSTALL_PREFIX:PATH=/Users/m/src-install/CompuCell3D_1_3.9
+-DCMAKE_OSX_SYSROOT:PATH=/opt/MacOSX10.10.sdk
+-DPython3_EXECUTABLE:PATH=/Users/m/miniconda3/envs/cc3d_440_39/bin/python3.9
+-DVTK_DIR:PATH=/Users/m/miniconda3/envs/cc3d_440_39/lib/cmake/vtk-9.2
+-DSWIG_EXECUTABLE:FILEPATH=/Users/m/miniconda3/envs//cc3d_440_39/bin/swig
+-DSWIG_DIR:PATH=/Users/m/miniconda3/envs//cc3d_440_39/share/swig/4.1.1
+-DSWIG_VERSION:STRING=4.1.1
+-DOpenMP_CXX_FLAGS:STRING="-fopenmp=libomp -I/Users/m/miniconda3/envs/cc3d_440_39/lib/clang/16.0.2/include"
+-DOpenMP_CXX_LIB_NAMES:STRING=omp
+-DOpenMP_omp_LIBRARY:PATH=/Users/m/miniconda3/envs/cc3d_440_39/lib/libomp.dylib

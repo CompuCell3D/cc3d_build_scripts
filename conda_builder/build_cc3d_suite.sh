@@ -1,3 +1,6 @@
+# if needed you may redirect all to the file and still display everything on the screen using this command invocation:
+# ./build_cc3d_suite.sh 2>&1 | tee >(cat >&2) > build_cc3d_suite_output.txt
+
 repo_prefix=/home/m/src/conda-build-repos
 if [ "$(uname)" == "Darwin" ]; then
   repo_prefix=/Users/m/src/conda-build-repos
@@ -20,7 +23,6 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo "${SCRIPT_DIR}"
 
-
 function build_conda_package () {
   local conda_recipe_dir=$1
   local py_version=$2
@@ -33,6 +35,6 @@ function build_conda_package () {
 
 
 build_conda_package "${cc3d_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
-build_conda_package "${player_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
-build_conda_package "${twedit_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
-build_conda_package "${cc3d_repo_dir}/conda-recipes-compucell3d" "${PYTHON_VERSION}"
+#build_conda_package "${player_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
+#build_conda_package "${twedit_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
+#build_conda_package "${cc3d_repo_dir}/conda-recipes-compucell3d" "${PYTHON_VERSION}"
