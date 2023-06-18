@@ -3,7 +3,7 @@
 
 echo "all args are $@"
 if [ -z "$1" ]; then
-  DEFAULT_VRSN='4.3.0'
+  DEFAULT_VRSN='4.4.1'
 else
   DEFAULT_VRSN=$1
 fi

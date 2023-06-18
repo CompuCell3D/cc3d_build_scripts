@@ -14,14 +14,17 @@ into target place.
 
 Step 1.
 
+Change default CC3D version  `DEFAULT_VRSN='4.4.1'` `build.sh` script
+If you forget to do this you can always do it later in the ``cc3d-installer-linux.sh``
+
 After you placed all the files in the payload do this
 
 .. code-block:: console
 
-    cd mac/conda_installer/bundled_installer
+    cd conda_builder/linux_installer/bundled_installer
     ./build.sh
 
-this will create ``cc3d-installer-osx.sh``
+this will create ``cc3d-installer-linux.sh``
 
 Step 2.
 
