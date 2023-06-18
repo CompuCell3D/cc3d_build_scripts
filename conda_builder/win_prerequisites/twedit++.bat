@@ -5,7 +5,7 @@ echo %script_dir%
 
 REM activate miniconda
 SET condabin=%script_dir%Miniconda3\condabin
-@CALL "%condabin%\conda.bat" activate cc3d
+@CALL "%condabin%\conda.bat" activate base
 
 
 @SET exit_code=0
