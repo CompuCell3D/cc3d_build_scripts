@@ -18,7 +18,7 @@ function print_usage {
   echo
   echo "./installer.sh  (in this case latest version will be installed in the default install dir \$HOME/CompuCell3D)"
   echo "./installer.sh -i /home/m/CompuCell3D (in this case the latest version of CC3D will be installed)"
-  echo "./installer.sh -i /home/m/m/CompuCell3D -v 4.3.2"
+  echo "./installer.sh -i /home/m/m/CompuCell3D -v 4.4.1"
   echo "./installer.sh -h (print_usage)"
 }
 
