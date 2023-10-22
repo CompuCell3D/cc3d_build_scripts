@@ -1,5 +1,7 @@
 # if needed you may redirect all to the file and still display everything on the screen using this command invocation:
 # ./build_cc3d_suite.sh 2>&1 | tee >(cat >&2) > build_cc3d_suite_output.txt
+# NOTE: it maybe necessary ro remove conda-bld and pkgs prior to building new cc3d
+# especially if upstream dependencies have changes. Otherwise you may get weird dependencies errors
 
 repo_prefix=/home/m/src/conda-build-repos
 if [ "$(uname)" == "Darwin" ]; then
