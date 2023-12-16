@@ -21,7 +21,7 @@ After you placed all the files in the payload do this
 
 .. code-block:: console
 
-    cd mac/conda_installer/bundled_installer
+    cd conda_builder/mac_installer_x86_py_3.10/bundled_installer
     ./build.sh
 
 this will create ``cc3d-installer-osx.sh``
