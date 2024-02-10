@@ -1,3 +1,15 @@
+Note that for OSX cc3d-networks need to be build on actual x86 OSX machine.
+Otherwise you may get this error:
+
+.. code-block:: console
+
+
+        self._handle = _dlopen(self._name, mode)
+    OSError: dlopen(/Users/m/CompuCell3D/miniconda3/compucell3d.app/Contents/lib/python3.10/site-packages/antimony/libantimony.dylib, 6): Symbol not found: __ZNKSt3__115basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEE3strEv
+      Referenced from: /Users/m/CompuCell3D/miniconda3/compucell3d.app/Contents/lib/python3.10/site-packages/antimony/libantimony.dylib (which was built for Mac OS X 12.0)
+      Expected in: /usr/lib/libc++.1.dylib
+
+
 Before building yu need to install conda env , call it rr (see .bat or.sh scripts)
 install numpy that cc3d is using (e.g. numpy=1.21 or 1.24 for python >=3.8) for compilation, pip install roadrunner
 and antimony
