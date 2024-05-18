@@ -12,6 +12,9 @@ all the files that need to be copied to the target machine + the ``installer`` s
 ``installer``. ``installer`` script will be executed after the archive is self-extrated, files are copied
 into target place.
 
+Step 0.
+Make symlink from CC3D repository Demos folder to ``bundled_installer/Demos``
+
 Step 1.
 
 Change `DEFAULT_VRSN='4.4.1'` in build.sh script to the desired version. If you forget to do this you may still change
