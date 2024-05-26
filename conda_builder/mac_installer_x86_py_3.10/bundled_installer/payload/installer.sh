@@ -67,9 +67,14 @@ conda install -y -c conda-forge mamba
 echo "Installing CompuCell3D package"
 mamba install -y -c compucell3d -c conda-forge ${COMPUCELL3D_PKG} | tee -a ${INSTALLATION_DIR}/install.log 2>&1
 
+# installing roadrunner and antimony directly using pip. Turns out that on older Macs there are issues with the SDK that
+# was linked to antimony when we built cc3d-networks-solver. THe SDK was newer than the one that is found on older Macs
+pip install antimony==2.13.2 | tee -a ${INSTALLATION_DIR}/install.log 2>&1
+pip install libroadrunner==2.3.1 | tee -a ${INSTALLATION_DIR}/install.log 2>&1
+
 # copying demos
 echo "Installing Demos"
 cp ${SCRIPT_DIR}/Demos.zip ${INSTALLATION_DIR}
 
-unzip ${INSTALLATION_DIR}/Demos.zip -d ${INSTALLATION_DIR} | tee -a ${INSTALLATION_DIR}/install.log 2>&1
+unzip ${INSTALLATION_DIR}/Demos.zip -d ${INSTALLATION_DIR}  > ${INSTALLATION_DIR}/install.log 2>&1
 rm ${INSTALLATION_DIR}/Demos.zip

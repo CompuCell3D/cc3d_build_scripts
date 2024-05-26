@@ -37,6 +37,6 @@ function build_conda_package () {
 
 
 build_conda_package "${cc3d_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
-build_conda_package "${player_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
-build_conda_package "${twedit_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
-build_conda_package "${cc3d_repo_dir}/conda-recipes-compucell3d" "${PYTHON_VERSION}"
+#build_conda_package "${player_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
+#build_conda_package "${twedit_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
+#build_conda_package "${cc3d_repo_dir}/conda-recipes-compucell3d" "${PYTHON_VERSION}"

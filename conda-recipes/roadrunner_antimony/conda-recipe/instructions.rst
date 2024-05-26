@@ -18,11 +18,15 @@ pip install libroadrunner
 pip install antimony
 
 
+For OSX on x83 it might be useful to set SDKROOT=/opt/MacOSX10.10.sdk prior to pip install
+
 on linux you may need to copy libncurses.so.5 libform.so.5 libtinfo.so.5 to site-packages/roadrunner
 
 change python version in meta.yaml and in build.sh/build.bat
 
 and then run install
+
+
 
 
 To build a conda package to the following:
@@ -33,9 +37,16 @@ To build a conda package to the following:
 
 From base conda environment run:
 
+for x86
 .. code-block:: console
 
-    conda-build  . -c conda-forge -c compucell3d --python 3.7
+    conda-build  . -c conda-forge -c compucell3d --python 3.10 -e conda_build_config_x86.yaml
+
+for arm64
+.. code-block:: console
+
+    conda-build  . -c conda-forge -c compucell3d --python 3.10 -e conda_build_config_arm64.yaml
+
 
 Your package will be built in ``<conda_installation_dir>/conda-bld/noarch``
 
