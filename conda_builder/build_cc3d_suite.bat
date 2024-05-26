@@ -14,9 +14,9 @@ IF "%1"=="" (
 echo %PYTHON_VERSION%
 
 call :build_conda_package %cc3d_repo_dir%\conda-recipes %PYTHON_VERSION%
-call :build_conda_package %player_repo_dir%\conda-recipes %PYTHON_VERSION%
-call :build_conda_package %twedit_repo_dir%\conda-recipes %PYTHON_VERSION%
-call :build_conda_package %cc3d_repo_dir%\conda-recipes-compucell3d %PYTHON_VERSION%
+@REM call :build_conda_package %player_repo_dir%\conda-recipes %PYTHON_VERSION%
+@REM call :build_conda_package %twedit_repo_dir%\conda-recipes %PYTHON_VERSION%
+@REM call :build_conda_package %cc3d_repo_dir%\conda-recipes-compucell3d %PYTHON_VERSION%
 
 exit /b
 
