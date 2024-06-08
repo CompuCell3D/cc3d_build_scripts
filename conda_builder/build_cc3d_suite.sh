@@ -3,10 +3,14 @@
 # NOTE: it maybe necessary ro remove conda-bld and pkgs prior to building new cc3d
 # especially if upstream dependencies have changes. Otherwise you may get weird dependencies errors
 
-repo_prefix=/home/m/src/conda-build-repos
+
+build_sources_dir_basename=conda-build-repos
+
+repo_prefix=/home/m/src/${build_sources_dir_basename}
 if [ "$(uname)" == "Darwin" ]; then
-  repo_prefix=/Users/m/src/conda-build-repos
+  repo_prefix=/Users/m/src/${build_sources_dir_basename}
 fi
+
 
 if [ $# -eq 0 ]; then
     # If not, assign a default value
