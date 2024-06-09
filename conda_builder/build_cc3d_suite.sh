@@ -3,10 +3,14 @@
 # NOTE: it maybe necessary ro remove conda-bld and pkgs prior to building new cc3d
 # especially if upstream dependencies have changes. Otherwise you may get weird dependencies errors
 
-repo_prefix=/home/m/src/conda-build-repos
+
+build_sources_dir_basename=conda-build-repos
+
+repo_prefix=/home/m/src/${build_sources_dir_basename}
 if [ "$(uname)" == "Darwin" ]; then
-  repo_prefix=/Users/m/src/conda-build-repos
+  repo_prefix=/Users/m/src/${build_sources_dir_basename}
 fi
+
 
 if [ $# -eq 0 ]; then
     # If not, assign a default value
@@ -28,6 +32,7 @@ echo "${SCRIPT_DIR}"
 function build_conda_package () {
   local conda_recipe_dir=$1
   local py_version=$2
+  echo "PROCESSING ${conda_recipe_dir}"
   cd "${conda_recipe_dir}" || exit
   mv versions.yaml versions.yaml.bak
   cp  "${SCRIPT_DIR}/versions.yaml" versions.yaml
@@ -36,7 +41,7 @@ function build_conda_package () {
 }
 
 
-build_conda_package "${cc3d_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
-#build_conda_package "${player_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
-#build_conda_package "${twedit_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
-#build_conda_package "${cc3d_repo_dir}/conda-recipes-compucell3d" "${PYTHON_VERSION}"
+#build_conda_package "${cc3d_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
+build_conda_package "${player_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
+build_conda_package "${twedit_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
+build_conda_package "${cc3d_repo_dir}/conda-recipes-compucell3d" "${PYTHON_VERSION}"
