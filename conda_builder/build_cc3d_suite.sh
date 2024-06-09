@@ -10,11 +10,6 @@ repo_prefix=$(eval echo ~/src/${build_sources_dir_basename})
 
 
 echo "repo_prefix = ${repo_prefix}"
-exit 0
-
-#if [ "$(uname)" == "Darwin" ]; then
-#  repo_prefix=/Users/m/src/${build_sources_dir_basename}
-#fi
 
 
 if [ $# -eq 0 ]; then
@@ -46,7 +41,7 @@ function build_conda_package () {
 }
 
 
-#build_conda_package "${cc3d_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
-build_conda_package "${player_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
-build_conda_package "${twedit_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
-build_conda_package "${cc3d_repo_dir}/conda-recipes-compucell3d" "${PYTHON_VERSION}"
+build_conda_package "${cc3d_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
+#build_conda_package "${player_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
+#build_conda_package "${twedit_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
+#build_conda_package "${cc3d_repo_dir}/conda-recipes-compucell3d" "${PYTHON_VERSION}"
