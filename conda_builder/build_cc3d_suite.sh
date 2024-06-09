@@ -6,10 +6,15 @@
 
 build_sources_dir_basename=conda-build-repos
 
-repo_prefix=/home/m/src/${build_sources_dir_basename}
-if [ "$(uname)" == "Darwin" ]; then
-  repo_prefix=/Users/m/src/${build_sources_dir_basename}
-fi
+repo_prefix=$(eval echo ~/src/${build_sources_dir_basename})
+
+
+echo "repo_prefix = ${repo_prefix}"
+exit 0
+
+#if [ "$(uname)" == "Darwin" ]; then
+#  repo_prefix=/Users/m/src/${build_sources_dir_basename}
+#fi
 
 
 if [ $# -eq 0 ]; then
