@@ -4,7 +4,7 @@
 # especially if upstream dependencies have changes. Otherwise you may get weird dependencies errors
 
 
-build_sources_dir_basename=conda-build-repos
+build_sources_dir_basename=conda-build-repos-clean
 
 repo_prefix=/home/m/src/${build_sources_dir_basename}
 if [ "$(uname)" == "Darwin" ]; then
@@ -41,7 +41,7 @@ function build_conda_package () {
 }
 
 
-#build_conda_package "${cc3d_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
+build_conda_package "${cc3d_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
 build_conda_package "${player_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
 build_conda_package "${twedit_repo_dir}/conda-recipes" "${PYTHON_VERSION}"
 build_conda_package "${cc3d_repo_dir}/conda-recipes-compucell3d" "${PYTHON_VERSION}"
