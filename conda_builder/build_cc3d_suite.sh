@@ -4,12 +4,12 @@
 # especially if upstream dependencies have changes. Otherwise you may get weird dependencies errors
 
 
-build_sources_dir_basename=conda-build-repos-clean
+build_sources_dir_basename=conda-build-repos
 
-repo_prefix=/home/m/src/${build_sources_dir_basename}
-if [ "$(uname)" == "Darwin" ]; then
-  repo_prefix=/Users/m/src/${build_sources_dir_basename}
-fi
+repo_prefix=$(eval echo ~/src/${build_sources_dir_basename})
+
+
+echo "repo_prefix = ${repo_prefix}"
 
 
 if [ $# -eq 0 ]; then
