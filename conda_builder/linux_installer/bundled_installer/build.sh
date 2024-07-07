@@ -3,10 +3,28 @@
 
 echo "all args are $@"
 if [ -z "$1" ]; then
-  DEFAULT_VRSN='4.5.0'
+  DEFAULT_VRSN='4.6.0'
 else
   DEFAULT_VRSN=$1
 fi
+
+# building latest version of demos
+demos_symlink_path="Demos"
+# Check if the symlink exists
+if [ -L "$demos_symlink_path" ]; then
+    # Check if the symlink points to a directory
+    if [ -d "$demos_symlink_path" ]; then
+      echo "OK"
+    else
+        echo "Error: The symlink does not point to a directory."
+        exit 1
+    fi
+else
+    echo "Error: Symlink ${demos_symlink_path} does not exist."
+    exit 1
+fi
+zip -vr ./payload/Demos.zip Demos/ -x "*.DS_Store"
+
 
 installer_fname=cc3d-installer-linux.sh
 
