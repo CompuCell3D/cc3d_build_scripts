@@ -4,7 +4,7 @@
 # especially if upstream dependencies have changes. Otherwise you may get weird dependencies errors
 
 
-build_sources_dir_basename=conda-build-repos-clean
+build_sources_dir_basename=conda-build-repos
 
 repo_prefix=$(eval echo ~/src/${build_sources_dir_basename})
 
