@@ -13,8 +13,8 @@ IF "%1"=="" (
 
 echo %PYTHON_VERSION%
 
-call :build_conda_package %cc3d_repo_dir%\conda-recipes %PYTHON_VERSION%
-@REM call :build_conda_package %player_repo_dir%\conda-recipes %PYTHON_VERSION%
+@REM call :build_conda_package %cc3d_repo_dir%\conda-recipes %PYTHON_VERSION%
+call :build_conda_package %player_repo_dir%\conda-recipes %PYTHON_VERSION%
 @REM call :build_conda_package %twedit_repo_dir%\conda-recipes %PYTHON_VERSION%
 @REM call :build_conda_package %cc3d_repo_dir%\conda-recipes-compucell3d %PYTHON_VERSION%
 
@@ -23,6 +23,7 @@ exit /b
 :build_conda_package
 set conda_recipe_dir=%1
 set py_version=%2
+echo "working inside %conda_recipe_dir%"
 cd %conda_recipe_dir%
 move versions.yaml versions.yaml.bak
 copy  %SCRIPT_DIR%\versions.yaml versions.yaml

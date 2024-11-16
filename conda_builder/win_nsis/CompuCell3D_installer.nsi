@@ -148,6 +148,7 @@ Section -Prerequisites
 
   SetOutPath "$INSTDIR\Prerequisites"
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\Miniconda3-latest-Windows-x86_64.exe"
+    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\log_and_display.py"
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\libiconv2.dll"
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\libintl3.dll"
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\tee.exe"
@@ -158,7 +159,8 @@ Section -Prerequisites
     ExecWait "$INSTDIR\Miniconda3\python -m zipfile -e $INSTDIR\Demos.zip $INSTDIR\Demos"
 
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\cc3d-install.bat"
-    ExecWait "$INSTDIR\Prerequisites\cc3d-install.bat ${CC3D_VERSION}"
+    ExecWait "$INSTDIR\Miniconda3\python $INSTDIR\Prerequisites\log_and_display.py  $INSTDIR\Prerequisites\cc3d-install.bat ${CC3D_VERSION}"
+    ;ExecWait "$INSTDIR\Prerequisites\cc3d-install.bat ${CC3D_VERSION}"
 
 SectionEnd
 
@@ -179,6 +181,7 @@ File "${INSTALLATION_SOURCE_DIR}\paramScan.bat"
 File "${INSTALLATION_SOURCE_DIR}\twedit++.bat"
 SetOutPath "$INSTDIR\Prerequisites"
 File "${INSTALLATION_SOURCE_DIR}\Prerequisites\Miniconda3-latest-Windows-x86_64.exe"
+File "${INSTALLATION_SOURCE_DIR}\Prerequisites\log_and_display.py"
 File "${INSTALLATION_SOURCE_DIR}\Prerequisites\cc3d-install.bat"
 File "${INSTALLATION_SOURCE_DIR}\Prerequisites\cc3d-uninstall.bat"
 SetOutPath "$INSTDIR\icons"
