@@ -22,5 +22,4 @@ call %conda_bat% install -y -c conda-forge mamba
 
 call %mamba_bat% install -y -c main -c compucell3d -c conda-forge compucell3d=%version%
 
-@REM |%script_dir%\tee %script_dir%\install.log 2>&1
 
