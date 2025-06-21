@@ -14,8 +14,22 @@ Before building yu need to install conda env , call it rr (see .bat or.sh script
 install numpy that cc3d is using (e.g. numpy=1.21 or 1.24 for python >=3.8) for compilation, pip install roadrunner
 and antimony
 
-pip install libroadrunner
-pip install antimony
+
+mamba install -c conda-forge numpy=2.2.6
+
+or you can create the env directly
+
+
+conda create -n rr_python3.12 -c conda-forge python=3.12 numpy=2.2.6
+
+then add libroadrunner and antimony
+
+pip install  libroadrunner antimony
+
+
+you may suppress dependencies if you want but with numpy installed beforehand it is not necessary
+
+pip install --no-deps libroadrunner antimony
 
 
 For OSX on x86 it might be useful to set SDKROOT=/opt/MacOSX10.10.sdk prior to pip install
@@ -29,7 +43,7 @@ and then run install
 
 
 
-To build a conda package to the following:
+To build a conda package to the following (make sure you are in a base environment!):
 
 .. code-block:: console
 
@@ -42,12 +56,20 @@ NOTE: you may actually change version of python in the meta.yaml file
 for x86
 .. code-block:: console
 
-    conda-build  . -c conda-forge -c compucell3d --python 3.10 -e conda_build_config_x86.yaml
+    conda mambabuild  . -c conda-forge -c local -c compucell3d --python 3.10 -e conda_build_config_x86.yaml
+
+    or
+
+    conda build  . -c conda-forge -c local -c compucell3d --python 3.10 -e conda_build_config_x86.yaml
 
 for arm64
 .. code-block:: console
 
-    conda-build  . -c conda-forge -c compucell3d --python 3.10 -e conda_build_config_arm64.yaml
+    conda mambabuild  . -c conda-forge -c local -c compucell3d --python 3.10 -e conda_build_config_arm64.yaml
+
+    or
+
+    conda build  . -c conda-forge -c local -c compucell3d --python 3.10 -e conda_build_config_arm64.yaml
 
 
 Your package will be built in ``<conda_installation_dir>/conda-bld/noarch``
