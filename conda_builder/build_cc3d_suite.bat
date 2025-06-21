@@ -5,7 +5,7 @@ set twedit_repo_dir=d:\src\conda-build-repos\cc3d-twedit5\
 set SCRIPT_DIR=%~dp0
 
 IF "%1"=="" (
-    SET PYTHON_VERSION=3.10
+    SET PYTHON_VERSION=3.12
 ) ELSE (
     SET PYTHON_VERSION=%1
 )

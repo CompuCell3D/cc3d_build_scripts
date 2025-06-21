@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export py_version="3.10"
+export py_version="3.12"
 
 # we are using env vars defined here:
 
