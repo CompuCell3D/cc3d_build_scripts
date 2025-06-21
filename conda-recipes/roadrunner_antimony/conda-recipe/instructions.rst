@@ -51,7 +51,7 @@ To build a conda package to the following (make sure you are in a base environme
 
 From base conda environment run:
 
-NOTE: you may actually change version of python in the meta.yaml file
+NOTE: you may actually change version of python in the meta.yaml file also adjust python version in build.sh or build.bat
 
 for x86
 .. code-block:: console
