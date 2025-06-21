@@ -1,4 +1,4 @@
-Note that for OSX cc3d-networks need to be build on actual x86 OSX machine.
+Note that for OSX cc3d-networks (for x86 OSX ) need to be build on actual x86 OSX machine.
 Otherwise you may get this error:
 
 .. code-block:: console
@@ -18,7 +18,7 @@ pip install libroadrunner
 pip install antimony
 
 
-For OSX on x83 it might be useful to set SDKROOT=/opt/MacOSX10.10.sdk prior to pip install
+For OSX on x86 it might be useful to set SDKROOT=/opt/MacOSX10.10.sdk prior to pip install
 
 on linux you may need to copy libncurses.so.5 libform.so.5 libtinfo.so.5 to site-packages/roadrunner
 
@@ -36,6 +36,8 @@ To build a conda package to the following:
     cd <dir_containing_conda_recipe>
 
 From base conda environment run:
+
+NOTE: you may actually change version of python in the meta.yaml file
 
 for x86
 .. code-block:: console
