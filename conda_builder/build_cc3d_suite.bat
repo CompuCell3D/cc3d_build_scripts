@@ -5,7 +5,7 @@ set twedit_repo_dir=d:\src\conda-build-repos\cc3d-twedit5\
 set SCRIPT_DIR=%~dp0
 
 IF "%1"=="" (
-    SET PYTHON_VERSION=3.10
+    SET PYTHON_VERSION=3.12
 ) ELSE (
     SET PYTHON_VERSION=%1
 )
@@ -16,7 +16,7 @@ echo %PYTHON_VERSION%
 @REM call :build_conda_package %cc3d_repo_dir%\conda-recipes %PYTHON_VERSION%
 @REM call :build_conda_package %player_repo_dir%\conda-recipes %PYTHON_VERSION%
 @REM call :build_conda_package %twedit_repo_dir%\conda-recipes %PYTHON_VERSION%
-call :build_conda_package %cc3d_repo_dir%\conda-recipes-compucell3d %PYTHON_VERSION%
+call :build_conda_package %cc3d_repo_dir%\conda-recipes-compucell3d %PYTHON_VESION%
 
 exit /b
 
