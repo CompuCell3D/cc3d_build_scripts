@@ -49,7 +49,7 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
 mkdir -p ${INSTALLATION_DIR}
 echo "INSTALLING Miniconda 3"
-${SCRIPT_DIR}/Miniconda3-py310_23.3.1-0-MacOSX-arm64.sh -s -b -p ${INSTALLATION_DIR}/miniconda3 | tee ${INSTALLATION_DIR}/install.log 2>&1
+${SCRIPT_DIR}/Miniconda3-py312_25.3.1-1-MacOSX-arm64.sh -s -b -p ${INSTALLATION_DIR}/miniconda3 | tee ${INSTALLATION_DIR}/install.log 2>&1
 
 source ${INSTALLATION_DIR}/miniconda3/bin/activate base
 
