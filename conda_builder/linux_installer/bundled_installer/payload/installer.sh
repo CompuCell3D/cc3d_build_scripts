@@ -3,7 +3,7 @@
 COMPUCELL3D_PKG=compucell3d
 INSTALLATION_DIR=$HOME/CompuCell3D
 VERSION=''
-MINICONDA_INSTALLER=Miniconda3-latest-Linux-x86_64.sh
+MINICONDA_INSTALLER=Miniconda3-py312_25.3.1-1-Linux-x86_64.sh
 
 function print_usage {
   echo
