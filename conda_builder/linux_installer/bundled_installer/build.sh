@@ -3,7 +3,7 @@
 
 echo "all args are $@"
 if [ -z "$1" ]; then
-  DEFAULT_VRSN='4.6.0'
+  DEFAULT_VRSN='4.7.0'
 else
   DEFAULT_VRSN=$1
 fi
@@ -26,7 +26,7 @@ fi
 zip -vr ./payload/Demos.zip Demos/ -x "*.DS_Store"
 
 
-installer_fname=cc3d-installer-linux.sh
+installer_fname="cc3d-installer-linux-${DEFAULT_VRSN}-x86-64bit.sh"
 
 cd payload
 tar cf ../payload.tar ./*
