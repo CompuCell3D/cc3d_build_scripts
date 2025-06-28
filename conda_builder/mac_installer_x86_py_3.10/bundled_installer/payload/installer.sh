@@ -49,7 +49,7 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
 mkdir -p ${INSTALLATION_DIR}
 echo "INSTALLING Miniconda 3"
-${SCRIPT_DIR}/Miniconda3-py310_23.3.1-0-MacOSX-x86_64.sh -s -b -p ${INSTALLATION_DIR}/miniconda3 | tee ${INSTALLATION_DIR}/install.log 2>&1
+bash ${SCRIPT_DIR}/Mambaforge-23.3.1-0-MacOSX-x86_64.sh -s -b -p ${INSTALLATION_DIR}/miniconda3 | tee ${INSTALLATION_DIR}/install.log 2>&1
 
 source ${INSTALLATION_DIR}/miniconda3/bin/activate base
 
@@ -63,7 +63,7 @@ cp ${SCRIPT_DIR}/run_scripts/* ${INSTALLATION_DIR}
 which python
 
 echo "Installing mamba package"
-conda install -y -c conda-forge mamba
+#conda install -y -c conda-forge mamba=1.5
 echo "Installing CompuCell3D package"
 mamba install -y -c compucell3d -c conda-forge ${COMPUCELL3D_PKG} | tee -a ${INSTALLATION_DIR}/install.log 2>&1
 
