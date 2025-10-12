@@ -63,7 +63,8 @@ cp ${SCRIPT_DIR}/run_scripts/* ${INSTALLATION_DIR}
 which python
 
 echo "Installing CompuCell3D conda package"
-conda install -y -c compucell3d -c conda-forge ${COMPUCELL3D_PKG} | tee -a ${INSTALLATION_DIR}/install.log 2>&1
+conda install -y   -c conda-forge mamba
+mamba install -y -c compucell3d -c conda-forge ${COMPUCELL3D_PKG} | tee -a ${INSTALLATION_DIR}/install.log 2>&1
 
 # copying demos
 echo "Installing Demos"
