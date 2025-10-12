@@ -28,7 +28,7 @@ call %MINICONDA_DIR%\condabin\activate.bat activate %MINICONDA_DIR%
 
  echo Installing mamba locally... "%conda_bat%"
 REM Install mamba into local Miniconda
-call "%CONDA_BAT%" install -y -c conda-forge mamba
+call "%CONDA_BAT%" install -y -c conda-forge mamba=2.1.1 python=3.12
 
 REM Ensure mamba installed
 if not exist "%MAMBA_BAT%" (
