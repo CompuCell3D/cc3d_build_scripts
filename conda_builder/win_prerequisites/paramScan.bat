@@ -1,16 +1,14 @@
+@echo off
 SET script_dir=%~dp0
-echo %script_dir%
-
 @set CURRENT_DIRECTORY=%CD%
 
-REM activate miniconda
-SET condabin=%script_dir%Miniconda3\condabin
-@REM @CALL "%condabin%\conda.bat" activate base
-@CALL "%condabin%\activate.bat"  %script_dir%Miniconda3
+REM Resolve path to miniforge3 and activate cc3d_env
+SET "MINIFORGE_DIR=%script_dir%\miniforge3"
+SET "condabin=%MINIFORGE_DIR%\condabin"
+CALL "%condabin%\activate.bat" cc3d_env
 
 @SET exit_code=0
-python -m cc3d.core.param_scan.parameter_scan_run %* 
-@SET exit_code= %errorlevel%
+python -m cc3d.core.param_scan.parameter_scan_run %* @SET exit_code=%errorlevel%
 
 goto simulationend
 
@@ -19,6 +17,27 @@ goto simulationend
    cd %CURRENT_DIRECTORY%
 
 exit /b %exit_code%
+@REM SET script_dir=%~dp0
+@REM echo %script_dir%
+@REM
+@REM @set CURRENT_DIRECTORY=%CD%
+@REM
+@REM REM activate miniconda
+@REM SET condabin=%script_dir%Miniconda3\condabin
+@REM @REM @CALL "%condabin%\conda.bat" activate base
+@REM @CALL "%condabin%\activate.bat"  %script_dir%Miniconda3
+@REM
+@REM @SET exit_code=0
+@REM python -m cc3d.core.param_scan.parameter_scan_run %*
+@REM @SET exit_code= %errorlevel%
+@REM
+@REM goto simulationend
+@REM
+@REM :simulationend
+@REM    echo "SIMULATION FINISHED"
+@REM    cd %CURRENT_DIRECTORY%
+@REM
+@REM exit /b %exit_code%
 
 
 

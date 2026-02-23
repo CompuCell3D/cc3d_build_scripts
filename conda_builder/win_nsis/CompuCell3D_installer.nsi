@@ -10,6 +10,10 @@
 
 ; !define CC3D_VERSION "4.3.2"
 ; !define CC3D_BUILD_NUMBER "1"
+; Define the package names at the top of your script
+!define CONDA_INSTALLER_NAME "Miniforge3-Windows-x86_64-26.1.0-0.exe"
+
+!define CONDA_DIR_NAME "miniforge3"
 
 !define VERSION "${CC3D_VERSION}.${CC3D_BUILD_NUMBER}"
 !define INSTALLATION_SOURCE_DIR "D:\install_projects\${VERSION}"
@@ -147,19 +151,19 @@ Section -Prerequisites
     File "${INSTALLATION_SOURCE_DIR}\Demos.zip"
 
   SetOutPath "$INSTDIR\Prerequisites"
-    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\Miniconda3-latest-Windows-x86_64.exe"
+    File "${INSTALLATION_SOURCE_DIR}\Prerequisites\${CONDA_INSTALLER_NAME}"
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\log_and_display.py"
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\libiconv2.dll"
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\libintl3.dll"
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\tee.exe"
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\wc.exe"
 
-    ExecWait "$INSTDIR\Prerequisites\Miniconda3-latest-Windows-x86_64.exe /InstallationType=JustMe /RegisterPython=0 /S /D=$INSTDIR\Miniconda3"
+    ExecWait "$INSTDIR\Prerequisites\${CONDA_INSTALLER_NAME} /InstallationType=JustMe /RegisterPython=0 /S /D=$INSTDIR\${CONDA_DIR_NAME}"
     ;using python to decompress demos
-    ExecWait "$INSTDIR\Miniconda3\python -m zipfile -e $INSTDIR\Demos.zip $INSTDIR\Demos"
+    ExecWait "$INSTDIR\${CONDA_DIR_NAME}\python -m zipfile -e $INSTDIR\Demos.zip $INSTDIR\Demos"
 
     File "${INSTALLATION_SOURCE_DIR}\Prerequisites\cc3d-install.bat"
-    ExecWait "$INSTDIR\Miniconda3\python $INSTDIR\Prerequisites\log_and_display.py  $INSTDIR\Prerequisites\cc3d-install.bat ${CC3D_VERSION}"
+    ExecWait "$INSTDIR\${CONDA_DIR_NAME}\python $INSTDIR\Prerequisites\log_and_display.py  $INSTDIR\Prerequisites\cc3d-install.bat ${CC3D_VERSION}"
     ;ExecWait "$INSTDIR\Prerequisites\cc3d-install.bat ${CC3D_VERSION}"
 
 SectionEnd
@@ -180,7 +184,7 @@ File "${INSTALLATION_SOURCE_DIR}\runScript.bat"
 File "${INSTALLATION_SOURCE_DIR}\paramScan.bat"
 File "${INSTALLATION_SOURCE_DIR}\twedit++.bat"
 SetOutPath "$INSTDIR\Prerequisites"
-File "${INSTALLATION_SOURCE_DIR}\Prerequisites\Miniconda3-latest-Windows-x86_64.exe"
+File "${INSTALLATION_SOURCE_DIR}\Prerequisites\${CONDA_INSTALLER_NAME}"
 File "${INSTALLATION_SOURCE_DIR}\Prerequisites\log_and_display.py"
 File "${INSTALLATION_SOURCE_DIR}\Prerequisites\cc3d-install.bat"
 File "${INSTALLATION_SOURCE_DIR}\Prerequisites\cc3d-uninstall.bat"
@@ -193,7 +197,7 @@ File "${INSTALLATION_SOURCE_DIR}\icons\twedit-icon.ico"
 ### CUSTOM MODIFICATION
 DetailPrint "Postinstallation ..."
  #removing unnecessary files
- Delete "$INSTDIR\Prerequisites\Miniconda3-latest-Windows-x86_64.exe"
+ Delete "$INSTDIR\Prerequisites\${CONDA_INSTALLER_NAME}"
  Delete "$INSTDIR\Demos.zip"
 
 ### END OF CUSTOM MODIFICATION
