@@ -3,7 +3,8 @@
 COMPUCELL3D_PKG=compucell3d
 INSTALLATION_DIR=$HOME/CompuCell3D
 VERSION=''
-MINICONDA_INSTALLER=Miniconda3-py312_25.3.1-1-Linux-x86_64.sh
+MINICONDA_INSTALLER=Miniforge3-26.1.0-0-Linux-x86_64.sh
+conda_dir_name=miniforge3
 
 function print_usage {
   echo
@@ -18,7 +19,7 @@ function print_usage {
   echo
   echo "./installer.sh  (in this case latest version will be installed in the default install dir \$HOME/CompuCell3D)"
   echo "./installer.sh -i /home/m/CompuCell3D (in this case the latest version of CC3D will be installed)"
-  echo "./installer.sh -i /home/m/m/CompuCell3D -v 4.4.1"
+  echo "./installer.sh -i /home/m/m/CompuCell3D -v 4.8.0"
   echo "./installer.sh -h (print_usage)"
 }
 
@@ -50,17 +51,18 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
 mkdir -p ${INSTALLATION_DIR}
 echo "INSTALLING Miniconda 3"
-${SCRIPT_DIR}/${MINICONDA_INSTALLER} -s -b -p ${INSTALLATION_DIR}/miniconda3 |tee ${INSTALLATION_DIR}/install.log 2>&1
+${SCRIPT_DIR}/${MINICONDA_INSTALLER} -s -b -p ${INSTALLATION_DIR}/${conda_dir_name} |tee ${INSTALLATION_DIR}/install.log 2>&1
 
-source ${INSTALLATION_DIR}/miniconda3/bin/activate base
+source ${INSTALLATION_DIR}/${conda_dir_name}/bin/activate base
 
 cp ${SCRIPT_DIR}/run_scripts/* ${INSTALLATION_DIR}
 
 which python
 
-echo "Installing CompuCell3D conda package"
-conda install -y -c conda-forge mamba
-mamba install -y -c compucell3d -c conda-forge ${COMPUCELL3D_PKG}| tee -a ${INSTALLATION_DIR}/install.log 2>&1
+echo "Installing CompuCell3D conda package into cc3d_env conda environment"
+mamba create -y -n cc3d_env python=3.12 -c conda-forge
+mamba install -y -n cc3d_env -c compucell3d -c conda-forge ${COMPUCELL3D_PKG}| tee -a ${INSTALLATION_DIR}/install.log 2>&1
+
 
 # copying demos
 echo "Installing Demos"

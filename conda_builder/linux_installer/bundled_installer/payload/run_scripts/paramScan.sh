@@ -1,7 +1,8 @@
 
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-source ${SCRIPT_DIR}/miniconda3/bin/activate base
+conda_dir=${SCRIPT_DIR}/miniforge3
+source ${conda_dir}/bin/activate cc3d_env
 
 export exit_code=0
 python -m cc3d.core.param_scan.parameter_scan_run $* 

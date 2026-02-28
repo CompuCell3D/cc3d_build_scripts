@@ -1,7 +1,7 @@
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-source ${SCRIPT_DIR}/miniconda3/bin/activate base
-
-export PYTHON_EXEC=${SCRIPT_DIR}/miniconda3/bin/python
+conda_dir=${SCRIPT_DIR}/miniforge3
+source ${conda_dir}/bin/activate cc3d_env
+export PYTHON_EXEC=${conda_dir}/bin/python
 
 ${PYTHON_EXEC} -m  cc3d.player5 $* --currentDir=${SCRIPT_DIR}
