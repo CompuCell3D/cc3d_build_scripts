@@ -3,10 +3,11 @@ SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 conda_dir=${SCRIPT_DIR}/miniforge3
 source ${conda_dir}/bin/activate cc3d_env
+export PYTHON_EXEC=${conda_dir}/envs/cc3d_env/bin/python
 
 
 export exit_code=0
-python -m cc3d.run_script $* --current-dir=${SCRIPT_DIR}
+${PYTHON_EXE} -m cc3d.run_script $* --current-dir=${SCRIPT_DIR}
 exit_code=$?
 
 cd ${SCRIPT_DIR}

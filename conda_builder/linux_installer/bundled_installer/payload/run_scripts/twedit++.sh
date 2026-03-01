@@ -1,7 +1,8 @@
 
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
 conda_dir=${SCRIPT_DIR}/miniforge3
 source ${conda_dir}/bin/activate cc3d_env
-export PYTHON_EXEC=${conda_dir}/bin/python
+export PYTHON_EXEC=${conda_dir}/envs/cc3d_env/bin/python
 
 ${PYTHON_EXEC} -m  cc3d.twedit5 $* 
