@@ -78,4 +78,4 @@ unzip ${INSTALLATION_DIR}/Demos.zip -d ${INSTALLATION_DIR} | tee -a ${INSTALLATI
 rm ${INSTALLATION_DIR}/Demos.zip
 
 # removing bulky conda packages that were pulled during installation process
-${MAMBA_BINARY} clean -ay -p ${ENV_PREFIX}
+${MAMBA_BINARY} clean --all --yes
