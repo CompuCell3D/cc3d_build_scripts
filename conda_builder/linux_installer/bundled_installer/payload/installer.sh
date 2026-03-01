@@ -60,6 +60,8 @@ cp ${SCRIPT_DIR}/run_scripts/* ${INSTALLATION_DIR}
 CONDA_ROOT="${INSTALLATION_DIR}/${conda_dir_name}"
 MAMBA_BINARY=${CONDA_ROOT}/bin/mamba
 ENV_PREFIX="${CONDA_ROOT}/envs/cc3d_env"
+# forcing separate package repository
+export CONDA_PKGS_DIRS="${CONDA_ROOT}/pkgs"
 
 which python
 
@@ -74,3 +76,6 @@ cp ${SCRIPT_DIR}/Demos.zip ${INSTALLATION_DIR}
 
 unzip ${INSTALLATION_DIR}/Demos.zip -d ${INSTALLATION_DIR} | tee -a ${INSTALLATION_DIR}/install.log 2>&1
 rm ${INSTALLATION_DIR}/Demos.zip
+
+# removing bulky conda packages that were pulled during installation process
+${MAMBA_BINARY} clean -ay -p ${ENV_PREFIX}
