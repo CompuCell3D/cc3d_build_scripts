@@ -59,12 +59,13 @@ cp ${SCRIPT_DIR}/run_scripts/* ${INSTALLATION_DIR}
 
 CONDA_ROOT="${INSTALLATION_DIR}/${conda_dir_name}"
 MAMBA_BINARY=${CONDA_ROOT}/bin/mamba
+ENV_PREFIX="${CONDA_ROOT}/envs/cc3d_env"
 
 which python
 
 echo "Installing CompuCell3D conda package into cc3d_env conda environment"
-${MAMBA_BINARY} create -y -n cc3d_env python=3.12 -c conda-forge
-${MAMBA_BINARY} install -y -n cc3d_env -c compucell3d -c conda-forge ${COMPUCELL3D_PKG}| tee -a ${INSTALLATION_DIR}/install.log 2>&1
+${MAMBA_BINARY} create -y -p ${ENV_PREFIX} python=3.12 -c conda-forge
+${MAMBA_BINARY} install -y -p ${ENV_PREFIX} -c compucell3d -c conda-forge ${COMPUCELL3D_PKG}| tee -a ${INSTALLATION_DIR}/install.log 2>&1
 
 
 # copying demos
