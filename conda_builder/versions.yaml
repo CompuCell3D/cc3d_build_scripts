@@ -2,7 +2,7 @@
 #build_number: 0
 
 version: 4.9.0
-build_number: 4
+build_number: 5
 #numpy_version : 1.24
 numpy_version : 2.2.6
 cc3d_network_solvers_version: 0.3.1
