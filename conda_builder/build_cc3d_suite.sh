@@ -29,13 +29,20 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo "${SCRIPT_DIR}"
 
+versions_file="${SCRIPT_DIR}/versions.yaml"
+if [ "$(uname -s)" = "Darwin" ] && [ "$(uname -m)" = "x86_64" ]; then
+  versions_file="${SCRIPT_DIR}/versions.yaml_osx_x86_only"
+fi
+
+echo "versions_file = ${versions_file}"
+
 function build_conda_package () {
   local conda_recipe_dir=$1
   local py_version=$2
   echo "PROCESSING ${conda_recipe_dir}"
   cd "${conda_recipe_dir}" || exit
   mv versions.yaml versions.yaml.bak
-  cp  "${SCRIPT_DIR}/versions.yaml" versions.yaml
+  cp  "${versions_file}" versions.yaml
   ./run_conda_build.sh "${py_version}"
   mv versions.yaml.bak versions.yaml
 }
