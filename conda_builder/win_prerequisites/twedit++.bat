@@ -4,8 +4,8 @@ SET script_dir=%~dp0
 
 REM Resolve path to miniforge3 and activate cc3d_env
 SET "MINIFORGE_DIR=%script_dir%\miniforge3"
-SET "condabin=%MINIFORGE_DIR%\condabin"
-CALL "%condabin%\activate.bat" cc3d_env
+SET "condabin=%MINIFORGE_DIR%\Scripts"
+CALL "%condabin%\activate.bat" %MINIFORGE_DIR%\envs\cc3d_env
 
 @SET exit_code=0
 python -m cc3d.twedit5 %*
