@@ -1,10 +1,12 @@
+#!/bin/bash
+
 # example command ./build-debian-cc3d-372.sh -s=~/CC3D_GIT -p=~/install_projects/3.7.2 -c=4
 #command line parsing
 
 function run_and_watch_status {
     # first argument is a task descriptor and is mandatory
     # the remaining arguments make up a command to execute
-    
+
     #executing the command
     "${@:2}"
     # querrying its status
@@ -14,13 +16,11 @@ function run_and_watch_status {
         echo "error with $1"
         exit $status
     fi
-    return $status    
+    return $status
 
 }
 
-
-export BUILD_ROOT=~/BuildCC3D
-export SOURCE_ROOT=~/CODE_TGIT_NEW
+export SOURCE_ROOT=~/CompuCell3D
 export DEPENDENCIES_ROOT=~/install_projects
 export INSTALL_PREFIX=~/install_projects/cc3d
 export RR_INSTALL_PATH=~/install_projects_RR_LLVM/RR_LLVM
@@ -45,7 +45,7 @@ case $i in
     -s=*|--source-root=*)
     SOURCE_ROOT=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
     ;;
-    
+
     -c=*|--cores=*)
     MAKE_MULTICORE=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
     ;;
@@ -74,7 +74,7 @@ case $i in
     BUILD_RR_DEPEND=YES
     ;;
     --help)
-    
+
     echo "build-debian-cc3d.sh <OPTIONS>"
     echo
     echo "OPTIONS:"
@@ -103,7 +103,7 @@ case $i in
     echo "--rr-depend : builds RoadRunner dependencies"
     echo
     ;;
-    
+
     *)
             # unknown option
     ;;
@@ -133,7 +133,6 @@ echo BUILD_RR_DEPEND $BUILD_RR_DEPEND
 
 # expanding paths
 eval INSTALL_PREFIX=$INSTALL_PREFIX
-eval BUILD_ROOT=$BUILD_ROOT
 eval SOURCE_ROOT=$SOURCE_ROOT
 eval DEPENDENCIES_ROOT=$DEPENDENCIES_ROOT
 
@@ -162,9 +161,9 @@ then
   mkdir -p $BUILD_ROOT/CompuCell3D
   cd $BUILD_ROOT/CompuCell3D
 
-  run_and_watch_status COMPUCELL3D_CMAKE_CONFIG cmake -G "Unix Makefiles" -DCOMPUCELL3D_A_MAJOR_VERSION:STRING=3 -DCOMPUCELL3D_B_MINOR_VERSION:STRING=7 -DCOMPUCELL3D_C_BUILD_VERSION:STRING=2 -DCMAKE_INSTALL_PREFIX:PATH=$INSTALL_PREFIX $SOURCE_ROOT/CompuCell3D 
+  run_and_watch_status COMPUCELL3D_CMAKE_CONFIG cmake -G "Unix Makefiles" -DCOMPUCELL3D_A_MAJOR_VERSION:STRING=3 -DCOMPUCELL3D_B_MINOR_VERSION:STRING=7 -DCOMPUCELL3D_C_BUILD_VERSION:STRING=2 -DCMAKE_INSTALL_PREFIX:PATH=$INSTALL_PREFIX $SOURCE_ROOT/CompuCell3D
   run_and_watch_status COMPUCELL3D_COMPILE_AND_INSTALL make $MAKE_MULTICORE_OPTION && make install
-  
+
   ############# END OF BUILDING CC3D
 fi
 
@@ -177,26 +176,26 @@ then
   SBML_BUILD_DIR=$BUILD_ROOT/libsbml-3.4.1
   SBML_INSTALL_DIR=$DEPENDENCIES_ROOT/libsbml-3.4.1
 
-  
+
   if [ ! -d "$SBML_INSTALL_DIR" ]; then # SBML_INSTALL_DIR does not exist
-  
+
     cp $SOURCE_ROOT/BionetSolver/dependencies/libsbml-3.4.1-src.zip $BUILD_ROOT
-    cd $BUILD_ROOT 
+    cd $BUILD_ROOT
 
     unzip libsbml-3.4.1-src.zip
-    
-    cd $SBML_BUILD_DIR 
-    run_and_watch_status LIBSBML_CONFIGURE ./configure --prefix=$SBML_INSTALL_DIR 
+
+    cd $SBML_BUILD_DIR
+    run_and_watch_status LIBSBML_CONFIGURE ./configure --prefix=$SBML_INSTALL_DIR
     # libsbml does not compile well with multi-core option on
     run_and_watch_status LIBSBML_COMPILE_AND_INSTALL make  && make install
   fi
-  
-  
+
+
   SUNDIALS_BUILD_DIR=$BUILD_ROOT/sundials-2.3.0
   SUNDIALS_INSTALL_DIR=$DEPENDENCIES_ROOT/sundials-2.3.0
-  
+
   if [ ! -d "$SUNDIALS_INSTALL_DIR" ]; then # SUNDIALS_INSTALL_DIR does not exist
-    
+
     cp $SOURCE_ROOT/BionetSolver/dependencies/sundials-2.3.0.tar.gz $BUILD_ROOT
     cd $BUILD_ROOT
 
@@ -212,7 +211,7 @@ fi
 
 if [ "$BUILD_BIONET_DEPEND" == YES ]
 then
-  ############# BUILDING  BIONET 
+  ############# BUILDING  BIONET
 
   export BIONET_SOURCE=$SOURCE_ROOT/BionetSolver/0.0.6
 
@@ -223,12 +222,12 @@ then
   run_and_watch_status BIONET_CMAKE_CONFIG cmake -G "Unix Makefiles" -DLIBSBML_INSTALL_DIR:PATH=$DEPENDENCIES_ROOT/libsbml-3.4.1 -DSUNDIALS_INSTALL_DIR:PATH=$DEPENDENCIES_ROOT/sundials-2.3.0 -DCMAKE_INSTALL_PREFIX:PATH=$INSTALL_PREFIX $BIONET_SOURCE
   run_and_watch_status BIONET_COMPILE_AND_INSTALL make $MAKE_MULTICORE_OPTION && make install
 
-  ############# END OF BUILDING  BIONET 
+  ############# END OF BUILDING  BIONET
 fi
 
 if [ "$BUILD_CELLDRAW" == YES ]
 then
-  ############# BUILDING  CELLDRAW 
+  ############# BUILDING  CELLDRAW
   export CELLDRAW_SOURCE=$SOURCE_ROOT/CellDraw/1.5.1
 
   mkdir -p $BUILD_ROOT/CellDraw
@@ -237,13 +236,13 @@ then
 
   run_and_watch_status CELLDRAW_CMAKE_CONFIG cmake -G "Unix Makefiles"  -DCMAKE_INSTALL_PREFIX:PATH=$INSTALL_PREFIX $CELLDRAW_SOURCE
   run_and_watch_status CELLDRAW_COMPILE_AND_INSTALL make && make install
-  ############# END OF  CELLDRAW 
+  ############# END OF  CELLDRAW
 fi
 
 if [ "$BUILD_RR" == YES ]
 then
   ############# COPY EXISTING RR_LLVM PYTHON INSTALLATION
-  run_and_watch_status COPY_ROAD_RUNNER cp -r ${RR_INSTALL_PATH}/site-packages/roadrunner ${INSTALL_PREFIX}/lib/python  
+  run_and_watch_status COPY_ROAD_RUNNER cp -r ${RR_INSTALL_PATH}/site-packages/roadrunner ${INSTALL_PREFIX}/lib/python
   ############# COPY EXISTING RR_LLVM PYTHON INSTALLATION
 fi
 
