@@ -220,13 +220,6 @@ CreateShortCut "$SMPROGRAMS\$SM_Folder\Twedit++.lnk" "$INSTDIR\${TWEDIT_EXE}" ""
 CreateShortCut "$DESKTOP\${TWEDIT_APP_NAME}.lnk" "$INSTDIR\${TWEDIT_EXE}" "" "$INSTDIR\icons\twedit-icon.ico"
 CreateShortCut "$SMPROGRAMS\$SM_Folder\Uninstall ${APP_NAME}.lnk" "$INSTDIR\uninstall-cc3d.exe"
 
-!ifdef WEB_SITE
-
-WriteIniStr "$INSTDIR\${APP_NAME} website.url" "InternetShortcut" "URL" "${WEB_SITE}"
-CreateShortCut "$SMPROGRAMS\$SM_Folder\${APP_NAME} Website.lnk" "$INSTDIR\${APP_NAME} website.url" "Website logo" "$INSTDIR\icons\cc3d_64x64_logo_www.ico"
-
-
-!endif
 !insertmacro MUI_STARTMENU_WRITE_END
 !endif
 WriteRegStr ${REG_ROOT} "${REG_APP_PATH}" "" "$INSTDIR\${MAIN_APP_EXE}"
@@ -273,10 +266,6 @@ RmDir "$INSTDIR\"
 ######################################################################
 ### CUSTOM MODIFICATION
 Delete "$INSTDIR\uninstall-cc3d.exe"
-!ifdef WEB_SITE
-Delete "$INSTDIR\${APP_NAME} website.url"
-
-!endif
 
 RmDir "$INSTDIR"
 
@@ -285,10 +274,6 @@ RmDir "$INSTDIR"
 Delete "$SMPROGRAMS\$SM_Folder\${APP_NAME}.lnk"
 Delete "$SMPROGRAMS\$SM_Folder\Uninstall ${APP_NAME}.lnk"
 Delete "$SMPROGRAMS\$SM_Folder\Twedit++.lnk"
-!ifdef WEB_SITE
-Delete "$SMPROGRAMS\$SM_Folder\${APP_NAME} Website.lnk"
-
-!endif
 Delete "$DESKTOP\${APP_NAME}.lnk"
 Delete "$DESKTOP\${TWEDIT_APP_NAME}.lnk"
 
